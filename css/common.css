@@ -1,0 +1,44 @@
+.contentTask{
+    margin-top:-20px;
+}
+
+nav div div{
+    height: 40px;
+}
+
+.initButton{
+    height: 25px;
+    width: 40px;
+    margin-top: 10px;
+}
+
+.leftSide{
+    padding-top: 50px;
+    background: url(../images/background.jpg) no-repeat;
+    background-size: cover;
+    height:500px;
+}
+
+.listTask{
+    background-color: #f8f8f8;
+    padding-top: 50px;
+    height:500px;
+}
+input{
+    width: 100%;
+    border-radius: 7%;
+}
+h4{
+    margin-right: 10px
+}
+
+.navbar{
+    background-color: cadetblue;   
+}
+.chooseTask{
+    width: 100%;
+    height: 30px;
+}
+.chooseTask:hover{
+    background-color: antiquewhite;
+}
