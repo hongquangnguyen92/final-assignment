@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap 101 Template</title>
+        <title>Your Tasks</title>
         <!-- Bootstrap -->
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/common.css" rel="stylesheet">
@@ -16,30 +16,7 @@
         <![endif]-->
     </head>
     <body>
-
-<!--
-            <nav class="container-fluit">
-                <div class="row">
-                    <div class="col-md-9" style="background-color:red">
-                        <button type="button" data-toggle="collapse" data-target=".initButton">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                        <a href="#">TASKS</a>
-
-                    </div>
-                    <div class=" col-md-3 initButton collapse" style="background-color:yellow">
-                        
-                           
-                                <button class="glyphicon glyphicon-menu-hamburger"></button> YOUR LIST
-                         
-                        
-                    </div>
-                </div>
-            </nav>
--->
-       
+ 
         <div class="navbar navbar-default">
             <div class="container">
                 <div class="row">
@@ -49,10 +26,10 @@
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
-                        <a class="navbar-brand" href="#">TASKS</a>
+                        <a class="navbar-brand">TASKS</a>
                     </div>
                     <div class="navbar-collapse collapse col-md-3">
-                        <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right selectButton">
                             <li><button class="glyphicon glyphicon-menu-hamburger initButton"></button> YOUR LIST</li>
                         </ul>
 
@@ -62,10 +39,9 @@
         </div>
         <div class="container contentTask">
             <div class="row">
-                <div class="col-md-9 leftSide">
+                <div class="col-md-9 leftSide">                    
                     <h3>Inbox</h3>
                     <input type="text" placeholder="Add your task">
-                   
                 </div>
                 <div class="col-md-3 listTask">
                     
@@ -78,5 +54,6 @@
      
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        
     </body>
 </html>
