@@ -15,13 +15,13 @@ nav div div{
     padding-top: 50px;
     background: url(../images/background.jpg) no-repeat;
     background-size: cover;
-    height:500px;
+    height:530px;
 }
 
 .listTask{
     background-color: #f8f8f8;
     padding-top: 50px;
-    height:500px;
+    height:530px;
 }
 input{
     width: 100%;
@@ -31,9 +31,6 @@ h4{
     margin-right: 10px
 }
 
-.navbar{
-    background-color: cadetblue;   
-}
 .chooseTask{
     cursor: pointer; 
     cursor: hand;
@@ -42,7 +39,6 @@ h4{
 .chooseTask:hover{
     background-color: antiquewhite;
 }
-<<<<<<< HEAD
 
 @media (max-width: 990px){
     .listTask{
@@ -88,5 +84,3 @@ body{
     background: url(../images/background_body.jpg) no-repeat;
     background-size: cover;
 }
-=======
->>>>>>> parent of b21021a... Change image
