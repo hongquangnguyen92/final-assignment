@@ -8,3 +8,10 @@ $("#cancel-addList").click(function(e) {
 function toggler(divId) {
     $("#" + divId).show();
 }
+
+$(function () {
+  $("#datepicker").datepicker({ 
+        autoclose: true, 
+        todayHighlight: true
+  });
+});

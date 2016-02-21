@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Bootstrap 101 Template</title>
+        <title>Task List</title>
         <!-- Bootstrap -->
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/common.css" rel="stylesheet">
@@ -24,7 +24,7 @@
                     <div class="navbar-header col-md-9">
 
                         <div class="dropdown navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Your Option
+                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu
                             <span class="caret"></span></button>
                             
                             <ul class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="menu1" role="menu">  
@@ -51,18 +51,28 @@
             <div class="row">
                 <div class="col-md-9 leftSide">
                     <h3>Inbox</h3>
-                    <input type="text" placeholder="Add your task">
-                   
+                    <form>
+                        <table>
+                            <tr class="fixInput">
+                                <td class="thingToDo">
+                                    <input style="float:left" type="text" class="form-control" placeholder="Add your task">                            
+                                </td>
+                                <td id="datepicker" class="input-group date" data-date-format="mm-dd-yyyy">
+                                    <input type="text" class="form-control input-group-addon" placeholder="Set time">
+                                </td>
+                            </tr>
+                        </table>                        
+                    </form>
                 </div>
                 <div class="col-md-3 listTask" id="wrapper">
                     <div>
-                        <div class="addList" onclick="toggler('addList');">
-                            <h4 class="glyphicon glyphicon-plus"></h4> 
-                            <span class="addNewList">Add List</span>
+                        <div class="addList">
+                            <h4 onclick="toggler('addList');" class="glyphicon glyphicon-plus"></h4> 
+                            <span onclick="toggler('addList');" class="addNewList">Add List</span>
                         </div>
                     </div>
-                    <div id="addList" class="hiddenInput">
-                        <input type="text" placeholder="Add your new list" id="newList">
+                    <div id="addList" class="hiddenInput fixInput">
+                        <input type="text" class="form-control" placeholder="Add your new list" id="newList">
                         <div class="createList">
                             <button>Create</button>
                             <button id="cancel-addList">Cancel</button>
@@ -80,5 +90,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../js/common.js"></script>
+        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+        <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
     </body>
 </html>
