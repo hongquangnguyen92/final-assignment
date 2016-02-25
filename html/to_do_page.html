@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="tasks">
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,14 +15,14 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body>
+    <body ng-controller="TasksController as ctrl">
 
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="row">
-                    
-                    <div class="navbar-header col-md-9">
-
+                      
+                    <div class="navbar-header col-md-8">
+<!--
                         <div class="dropdown navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu
                             <span class="caret"></span></button>
@@ -37,20 +37,35 @@
                                 <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Wake Up</a></li>
                             </ul>
                         </div>
+-->
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                         <a class="navbar-brand">TASKS</a>
                     </div>
-                    <div class="navbar-collapse collapse col-md-3">
+                    <div class="col-md-4">
                         <ul class="nav navbar-nav navbar-right selectButton">
-                            <li><button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger initButton"></button> YOUR LIST</li>
+                            <li>
+                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger"></button>                                
+                                <input class="search-input" type="text">
+                                <span id="searchIcon" class="glyphicon glyphicon-search"></span>
+                            </li>
                         </ul>
-                    </div>             
+                    </div>           
                 </div>
             </div>
         </nav>
         <div class="container contentTask" >
             <div class="row">
                 <div class="col-md-9 leftSide">
-                    <h3>Inbox</h3>
+                    <div ng-repeat="itemS in ctrl.list()">
+                        <div ng-if="ctrl.valueIndex == itemS.taskListId">
+                            <h3>{{itemS.nameListTask}}</h3>
+                        </div>    
+                    </div>
+                    
                     <form>
                         <table>
                             <tr class="fixInput">
@@ -63,38 +78,78 @@
                             </tr>
                         </table>                        
                     </form>
+                    
+                    <span class="form-control" id="notDoneList">
+                        <span>TASKS TO-DOS</span>
+                    </span>
+
+                    <span class="form-control" id="doneList">
+                        <span>COMPLETED TASKS</span>
+                    </span>
+                        
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="listToDo">
-                                <div class="task form-control">
+                            <div class="listToDo" ng-repeat="itemS in ctrl.list()">
+                                <div class="task form-control" ng-repeat="i in itemS.contentTask" ng-if="ctrl.valueIndex == itemS.taskListId">
                                     <input type="checkbox"> 
-                                    <span class="checkTask">Task 1</span>
-                                </div>
-                                <div class="task form-control">
-                                    <input type="checkbox"> 
-                                    <span class="checkTask">Task 2</span>
-                                </div>
+                                    <span class="checkTask">{{i.nameTask}}</span>
+                                    <span class="icon-pencil"></span>                                    
+                                </div> 
                             </div>
                         </div>
-                    </div>                            
-                </div>
-                <div class="col-md-3 listTask" id="wrapper">
-                    <div>
-                        <div class="addList">
-                            <h4 onclick="toggler('addList');" class="glyphicon glyphicon-plus"></h4> 
-                            <span onclick="toggler('addList');" class="addNewList">Add List</span>
+                    </div>  
+                    
+                    <!--   Modal Add List Task     -->
+                    <div class="modal fade" id="modalAddList" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <!--  Form modal    -->
+                                <form id="addForm" method="post">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">New message</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="list-name" placeholder="List Name" ng-model="itemName" name="list-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="member-name" class="control-label">List Member</label>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                                <input type="text" class="form-control" id="member-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label icon-name">Q</label>
+                                                <label class="control-label full-name">Quang Nguyen</label>
+                                                <label class="control-label icon-owner">Owner</label>
+                                                <span class="control-span email-name">hongquangnguyen92@gmail.com</span>
+                                            </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" id="closemodal" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="savemodal" ng-click="ctrl.add()" disabled="disabled">Save</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                    <div id="addList" class="hiddenInput fixInput">
-                        <input type="text" class="form-control" placeholder="Add your new list" id="newList">
-                        <div class="createList">
-                            <button>Create</button>
-                            <button id="cancel-addList">Cancel</button>
+                    <!--                    -->
+                    
+                </div>
+                <div class="col-md-3 listTask" id="wrapper">
+                    <label class="icon-name-primary">Q</label>
+                    <label class="full-name-primary">Quang Nguyen</label>
+                    <span class="glyphicon glyphicon-menu-down icon-menu"></span>
+                    <span class="glyphicon glyphicon-bell icon-due-time"></span>
+                    <div>
+                        <div class="addList">
+                            <h4 data-toggle="modal" data-target="#modalAddList" class="glyphicon glyphicon-plus"></h4> 
+                            <span data-toggle="modal" data-target="#modalAddList" class="addNewList">Add List</span>
                         </div>
                     </div>
                     <div class="rim"></div>
-                    <div class="chooseTask"> <h4 class="glyphicon glyphicon-tasks"></h4> Inbox</div>
-                    <div class="chooseTask"> <h4 class="glyphicon glyphicon-tasks"></h4> Wake Up</div>                    
+                    <div class="chooseTask" ng-repeat="itemS in ctrl.list()" my-element="itemS" ng-click="ctrl.choose()"></div>
                 </div>
             </div>
         </div>
@@ -105,5 +160,7 @@
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
+        <script src="../js/angular.min.js"></script>
+        <script src="../js/app.js"></script>
     </body>
 </html>
