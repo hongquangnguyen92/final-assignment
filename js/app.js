@@ -2,13 +2,23 @@ var app = angular.module('tasks', []);
 
 function ItemService(opt_items) {
   var items = opt_items || [];
-
+    
   this.list = function() {
     return items;
   };
   this.add = function(item) {
     items.push(item);
   };
+    
+//    this.addNewTask = function(obJ,item, index){
+//        for(var i=0; i<items.length; i++)
+//        {
+//            if(i==index)
+//            {
+//                items[i].obJ.push(item);
+//            }
+//        }
+//    }
 }
     
 app.provider('ItemService', function() {
@@ -107,7 +117,7 @@ app.controller('TasksController', function($scope, ItemService){
     };
 
     // Add an item to the list
-    self.add = function() {
+    self.addList = function() {
         if($scope.itemName!=null && $scope.itemName!=""){
         ItemService.add({
             nameListTask: $scope.itemName
@@ -118,11 +128,23 @@ app.controller('TasksController', function($scope, ItemService){
     
     // Choose task list
     self.valueIndex = 0;
-    self.choose = function(){
-//        var abc = $(this).attr('value');
-        alert(abc);
+    self.choose = function(indexTemp){
+        var abc = indexTemp;
         self.valueIndex = abc;
     };
+    
+    // Add task to list
+//    $scope.addTask = function(keyEvent,indexCurrent) {
+//      if (keyEvent.which === 13){
+//        
+//        ItemService.addNewTask($scope.contentTask,{
+//            nameTask: $scope.itemNameTask,
+//            dueDay: $scope.itemDueDate
+//        }, indexCurrent);}
+//        // Clear input fields after push
+//        $scope.itemNameTask = "";
+//        $scope.itemDueDate = "";
+//    };
 });  
 app.directive('myElement', function () {
   return {
@@ -131,8 +153,6 @@ app.directive('myElement', function () {
     },
     restrict: 'EA',
     template:
-      '<input class="hiddenInput getValue" value="{{itemS.taskListId}}">'+
       '<h4 class="glyphicon glyphicon-tasks"></h4> {{itemS.nameListTask}}'
     };
 });
-

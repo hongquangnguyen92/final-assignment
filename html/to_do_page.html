@@ -63,22 +63,20 @@
                     <div ng-repeat="itemS in ctrl.list()">
                         <div ng-if="ctrl.valueIndex == itemS.taskListId">
                             <h3>{{itemS.nameListTask}}</h3>
-                        </div>    
+                            <form>
+                                <table>
+                                    <tr class="fixInput">
+                                        <td class="thingToDo">
+                                            <input type="text" class="form-control" placeholder="Add your task" ng-keypress="addTask($event,ctrl.valueIndex)" ng-model="itemNameTask">
+                                        </td>
+                                        <td id="datepicker" class="input-group date sizeDate" data-date-format="mm-dd-yyyy">
+                                            <input type="text" class="form-control input-group-addon" placeholder="Set time" ng-model="itemDueDate">
+                                        </td>
+                                    </tr>
+                                </table>                        
+                            </form>
+                        </div>
                     </div>
-                    
-                    <form>
-                        <table>
-                            <tr class="fixInput">
-                                <td class="thingToDo">
-                                    <input style="float:left" type="text" class="form-control" placeholder="Add your task">                            
-                                </td>
-                                <td id="datepicker" class="input-group date sizeDate" data-date-format="mm-dd-yyyy">
-                                    <input type="text" class="form-control input-group-addon" placeholder="Set time">
-                                </td>
-                            </tr>
-                        </table>                        
-                    </form>
-                    
                     <span class="form-control" id="notDoneList">
                         <span>TASKS TO-DOS</span>
                     </span>
@@ -128,7 +126,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" id="closemodal" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="savemodal" ng-click="ctrl.add()" disabled="disabled">Save</button>
+                                        <button type="submit" class="btn btn-primary" id="savemodal" ng-click="ctrl.addList()" disabled="disabled">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -149,7 +147,7 @@
                         </div>
                     </div>
                     <div class="rim"></div>
-                    <div class="chooseTask" ng-repeat="itemS in ctrl.list()" my-element="itemS" ng-click="ctrl.choose()"></div>
+                    <div class="chooseTask" ng-repeat="itemS in ctrl.list()" my-element="itemS" ng-click="ctrl.choose($index)"></div>
                 </div>
             </div>
         </div>
