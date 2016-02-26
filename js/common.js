@@ -1,4 +1,5 @@
-$("#cancel-addList").click(function(e) {
+$(document).ready(function(){
+    $("#cancel-addList").click(function(e) {
     e.preventDefault();
     var $newListInput = $('#newList');
     $("#addList").hide();
@@ -12,6 +13,9 @@ jQuery(function($) {
        $(this).children('.icon-pencil').removeClass('glyphicon glyphicon-pencil');
     });
 }); 
+    
+});
+
 
 //function showOff(divId) {
 //    $("." + divId).removeClass('glyphicon glyphicon-pencil');
