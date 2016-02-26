@@ -15,7 +15,7 @@
             <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
     </head>
-    <body ng-controller="TasksController as ctrl">
+    <body ng-controller="TasksController">
 
         <nav class="navbar navbar-default">
             <div class="container">
@@ -60,17 +60,17 @@
         <div class="container contentTask" >
             <div class="row">
                 <div class="col-md-9 leftSide">
-                    <div ng-repeat="itemS in ctrl.list()">
-                        <div ng-if="ctrl.valueIndex == itemS.taskListId">
+                    <div ng-repeat="itemS in moduleService.listTask">
+                        <div ng-if="valueIndex == itemS.taskListId">
                             <h3>{{itemS.nameListTask}}</h3>
                             <form>
                                 <table>
                                     <tr class="fixInput">
                                         <td class="thingToDo">
-                                            <input type="text" class="form-control" placeholder="Add your task" ng-keypress="addTask($event,ctrl.valueIndex)" ng-model="itemNameTask">
+                                            <input type="text" class="form-control" placeholder="Add your task" ng-enter="addTask(valueIndex)" ng-model="a.itemNameTask">
                                         </td>
                                         <td id="datepicker" class="input-group date sizeDate" data-date-format="mm-dd-yyyy">
-                                            <input type="text" class="form-control input-group-addon" placeholder="Set time" ng-model="itemDueDate">
+                                            <input type="text" class="form-control input-group-addon" placeholder="Set time" ng-model="a.itemDueDate">
                                         </td>
                                     </tr>
                                 </table>                        
@@ -87,8 +87,8 @@
                         
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="listToDo" ng-repeat="itemS in ctrl.list()">
-                                <div class="task form-control" ng-repeat="i in itemS.contentTask" ng-if="ctrl.valueIndex == itemS.taskListId">
+                            <div class="listToDo" ng-repeat="itemS in moduleService.listTask">
+                                <div class="task form-control" ng-repeat="i in itemS.contentTask" ng-if="valueIndex == itemS.taskListId">
                                     <input type="checkbox"> 
                                     <span class="checkTask">{{i.nameTask}}</span>
                                     <span class="icon-pencil"></span>                                    
@@ -126,7 +126,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" id="closemodal" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="savemodal" ng-click="ctrl.addList()" disabled="disabled">Save</button>
+                                        <button type="submit" class="btn btn-primary" id="savemodal" ng-click="addList()" disabled="disabled">Save</button>
                                     </div>
                                 </form>
                             </div>
@@ -147,7 +147,7 @@
                         </div>
                     </div>
                     <div class="rim"></div>
-                    <div class="chooseTask" ng-repeat="itemS in ctrl.list()" my-element="itemS" ng-click="ctrl.choose($index)"></div>
+                    <div class="chooseTask" ng-repeat="itemS in moduleService.listTask" my-element="itemS" ng-click="choose($index)"></div>
                 </div>
             </div>
         </div>

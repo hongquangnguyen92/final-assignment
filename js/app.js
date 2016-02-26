@@ -10,18 +10,18 @@ function ItemService(opt_items) {
     items.push(item);
   };
     
-//    this.addNewTask = function(obJ,item, index){
-//        for(var i=0; i<items.length; i++)
-//        {
-//            if(i==index)
-//            {
-//                items[i].obJ.push(item);
-//            }
-//        }
-//    }
+   this.addNewTask = function(obJ,item, index){
+       for(var i=0; i<items.length; i++)
+       {
+           if(i==index)
+           {
+               items[i].obJ.push(item);
+           }
+       }
+   }
 }
     
-app.provider('ItemService', function() {
+app.service('ItemService', function() {
     var haveDefaultItems = true;
 
     this.disableDefaultItems = function() {
@@ -30,67 +30,79 @@ app.provider('ItemService', function() {
     
     // This function gets our dependencies, not the
     // provider above
-    this.$get = [function() {
-        var listTask = [];
-            if (haveDefaultItems) {
-                listTask = [
-                    {
-                        taskListId : 0,
-                        nameListTask : "Inbox",
-                        contentTask:
-                                    [
-                                        {
-                                            taskId : 1,
-                                            nameTask : "Task 1",
-                                            dueDay : "11-03-2016"
-                                        },
-                                        {
-                                            taskId : 2,
-                                            nameTask : "Task 2",
-                                            dueDay : "13-03-2016"
-                                        }
-                                    ]
-                    },
-                    {
-                        taskListId : 1,
-                        nameListTask : "Wake Up",
-                        contentTask:
-                                    [
-                                        {
-                                            taskId : 1,
-                                            nameTask : "Task 3",
-                                            dueDay : "11-03-2016"
-                                        },
-                                        {
-                                            taskId : 2,
-                                            nameTask : "Task 4",
-                                            dueDay : "13-03-2016"
-                                        }
-                                    ]
-                    },
-                    {
-                        taskListId : 2,
-                        nameListTask : "Study",
-                        contentTask:
-                                    [
-                                        {
-                                            taskId : 1,
-                                            nameTask : "Task 5",
-                                            dueDay : "11-03-2016"
-                                        },
-                                        {
-                                            taskId : 2,
-                                            nameTask : "Task 6",
-                                            dueDay : "13-03-2016"
-                                        }
-                                    ]
-                    }
-                ];
+    // this.$get = [function() {
+    this.listTask = [];
+        if (haveDefaultItems) {
+            this.listTask = [
+                {
+                    taskListId : 0,
+                    nameListTask : "Inbox",
+                    contentTask:
+                                [
+                                    {
+                                        taskId : 1,
+                                        nameTask : "Task 1",
+                                        dueDay : "11-03-2016"
+                                    },
+                                    {
+                                        taskId : 2,
+                                        nameTask : "Task 2",
+                                        dueDay : "13-03-2016"
+                                    }
+                                ]
+                },
+                {
+                    taskListId : 1,
+                    nameListTask : "Wake Up",
+                    contentTask:
+                                [
+                                    {
+                                        taskId : 1,
+                                        nameTask : "Task 3",
+                                        dueDay : "11-03-2016"
+                                    },
+                                    {
+                                        taskId : 2,
+                                        nameTask : "Task 4",
+                                        dueDay : "13-03-2016"
+                                    }
+                                ]
+                },
+                {
+                    taskListId : 2,
+                    nameListTask : "Study",
+                    contentTask:
+                                [
+                                    {
+                                        taskId : 1,
+                                        nameTask : "Task 5",
+                                        dueDay : "11-03-2016"
+                                    },
+                                    {
+                                        taskId : 2,
+                                        nameTask : "Task 6",
+                                        dueDay : "13-03-2016"
+                                    }
+                                ]
+                }
+            ];
 
-            }
-        return new ItemService(listTask);
+        }
+        this.add = function(item) {
+		    this.listTask.push(item);
+		  };
 
-    }];
+		this.addNewTask = function(obJ,item, index){
+	       for(var i=0; i<this.listTask.length; i++)
+	       {
+	           if(i==index)
+	           {
+	               obJ.push(item);
+	           }
+	       }
+	   }
+
+    // }];
 
 });
 
@@ -111,13 +123,16 @@ app.config(['ItemServiceProvider',
 }])
 
 app.controller('TasksController', function($scope, ItemService){
-    var self = this;
-    self.list = function() {
+    $scope.moduleService = ItemService;
+    $scope.a = {};
+    $scope.a.itemNameTask = "";
+    $scope.a.itemDueDate = "";
+    $scope.list = function() {
       return ItemService.list();
     };
 
     // Add an item to the list
-    self.addList = function() {
+    $scope.addList = function() {
         if($scope.itemName!=null && $scope.itemName!=""){
         ItemService.add({
             nameListTask: $scope.itemName
@@ -127,24 +142,23 @@ app.controller('TasksController', function($scope, ItemService){
     };
     
     // Choose task list
-    self.valueIndex = 0;
-    self.choose = function(indexTemp){
+    $scope.valueIndex = 0;
+    $scope.choose = function(indexTemp){
         var abc = indexTemp;
-        self.valueIndex = abc;
+        $scope.valueIndex = abc;
     };
     
     // Add task to list
-//    $scope.addTask = function(keyEvent,indexCurrent) {
-//      if (keyEvent.which === 13){
-//        
-//        ItemService.addNewTask($scope.contentTask,{
-//            nameTask: $scope.itemNameTask,
-//            dueDay: $scope.itemDueDate
-//        }, indexCurrent);}
-//        // Clear input fields after push
-//        $scope.itemNameTask = "";
-//        $scope.itemDueDate = "";
-//    };
+   	$scope.addTask = function(indexCurrent) {
+       $scope.moduleService.addNewTask($scope.moduleService.listTask[0].contentTask,{
+           nameTask: $scope.a.itemNameTask,
+           dueDay: $scope.a.itemDueDate
+       }, indexCurrent);
+
+       // Clear input fields after push
+       $scope.a.itemNameTask = "";
+       $scope.a.itemDueDate = "";
+   };
 });  
 app.directive('myElement', function () {
   return {
@@ -154,5 +168,18 @@ app.directive('myElement', function () {
     restrict: 'EA',
     template:
       '<h4 class="glyphicon glyphicon-tasks"></h4> {{itemS.nameListTask}}'
+    };
+});
+app.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+ 
+                event.preventDefault();
+            }
+        });
     };
 });
