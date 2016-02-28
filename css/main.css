@@ -1,0 +1,251 @@
+.contentTask{
+    margin-top:-20px;
+}
+nav div div{
+    height: 40px;
+}
+#menu-toggle{
+    display: none;
+    height: 25px;
+    width: 40px;
+    margin-top: 10px;
+}
+.icon-pencil{
+    float: right;
+    display: none;
+}
+.nav-pills{
+    margin-top: 10px;
+}
+.nav-pills a{
+    color: dimgray;
+}
+.listToDo{
+    margin-top: 5px;
+    overflow-y : auto;
+    overflow-x: hidden;
+    height: 300px;
+}
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:hover, 
+.nav-pills > li.active > a:focus {
+    background-color:darkcyan !important;
+}
+
+.nav-pills > li:first-child{
+    font-size: 11px;
+    width: 110px; 
+}
+
+.nav-pills > li:not(first-child){
+    font-size: 11px;
+    width: 133px; 
+}
+
+/*** Set scrollbar ***/
+::-webkit-scrollbar {
+    width: 5px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); 
+    border-radius: 10px;
+    margin-top: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: dimgray; 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
+}
+/*** End set scrollbar ***/
+
+.deleteTask {
+    text-decoration: line-through;
+}
+.nonDeleteTask{
+    text-decoration: none;
+}
+
+.modal-title{
+    text-align: center;
+}
+.icon-name, .icon-name-primary{
+    border-radius: 50%;
+    background-color: darkcyan;
+    width: 40px;
+    height: 40px;
+    text-align: center;
+    color: white;
+    padding-top: 7px;
+    font-size: 20px;
+    float: left;
+}
+.full-name, .full-name-primary{
+    font-size: 17px;
+    margin-left: 10px
+}
+.icon-owner{
+    border-radius: 30%;
+    border: 1px solid;
+    border-color: darkgray;
+    color: darkgray;
+}
+.email-name{
+    clear: both;
+    float: left;
+    margin-left: 50px;
+    margin-top: -20px
+}
+.modal .modal-dialog {
+  width: 400px;
+}
+.icon-name-primary{
+    width: 30px;
+    height: 30px;
+    padding-top: 2px;
+}
+.full-name-primary{
+    margin-top: 4px;
+    cursor: pointer;
+    font-weight: 100;
+}
+.icon-menu, .icon-due-time{
+    cursor: pointer;
+}
+.icon-due-time{
+    margin-left: 70px
+}
+.addList{
+    margin-top: 15px;
+}
+.thingToDo{
+    width: 100%;
+}
+.sizeDate{
+    width: 100px;
+}
+.fixInput input{
+    border-radius: 0;
+}
+.checkTask{
+    margin-left: 10px;
+}
+.leftSide{
+    padding-top: 50px;
+    background: url(../images/background.jpg) no-repeat;
+    background-size: cover;
+    height:530px;
+}
+.task:first-child{
+    margin-top: 20px;
+}
+.task{
+    margin-top: 5px;    
+}
+.listTask{
+    background-color: #f8f8f8;
+    padding-top: 50px;
+    height:530px;
+}
+h4{
+    margin-right: 10px;
+    cursor: pointer;
+}
+.collections{
+    overflow-y : auto;
+    overflow-x: hidden;
+    height: 350px;
+    margin-top: 5px
+}
+.chooseTask{
+    cursor: pointer;
+    height: 30px;
+}
+.chooseTask:hover{
+    background-color: antiquewhite;
+}
+.search-input{
+    margin-top: 15px;
+    width:  250px;
+    border-color: #f8f8f8;
+    outline: none;
+    background-color: white;
+}
+@media (max-width: 1200px){
+    .search-input{
+        width: 200px
+    }
+    .icon-due-time{
+        margin-left: 20px
+    }
+}
+@media (max-width: 990px){
+    .listTask{
+        display: none;
+    }
+    #menu-toggle{
+        display: block;
+        border: 0;
+        border-color: #f8f8f8;
+        outline: none;
+        background-color: #f8f8f8;
+    }
+    #searchIcon, .search-input{
+        display: none;
+    }
+}
+@media (max-width: 500px){
+    .thingToDo{
+        width: 100%;
+    }
+}
+@media (max-width: 290px){
+    .nav-pills > li:first-child{
+        width: 43%; 
+    }
+
+    .nav-pills > li:not(first-child){
+        width: 55%; 
+    }
+}
+#wrapper {
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+
+.addNewList:hover{
+    text-decoration: underline;
+    cursor: pointer;
+}
+.rim{
+    margin-top: 5px;
+    border: 1px solid;
+    color: darkgray
+}
+.scrollable-menu {
+    height: auto;
+    max-height: 100px;
+    overflow-x: hidden;
+}
+.hiddenInput {
+     display:none;
+}
+.hiddenCancel {
+     display:none;
+}
+.createList{
+    margin-top: 5px;
+}
+body{
+    background: url(../images/background_body.jpg) no-repeat;
+    background-size: cover;
+    height: 100%;
+}
+html{
+    height: 100%;
+}
