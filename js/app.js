@@ -1,25 +1,4 @@
 var app = angular.module('tasks', []);
-
-function ItemService(opt_items) {
-  var items = opt_items || [];
-    
-  this.list = function() {
-    return items;
-  };
-  this.add = function(item) {
-    items.push(item);
-  };
-    
-   this.addNewTask = function(obJ,item, index){
-       for(var i=0; i<items.length; i++)
-       {
-           if(i==index)
-           {
-               items[i].obJ.push(item);
-           }
-       }
-   }
-}
     
 app.service('ItemService', function() {
     var haveDefaultItems = true;
@@ -28,26 +7,31 @@ app.service('ItemService', function() {
         haveDefaultItems = false;
     };
     
-    // This function gets our dependencies, not the
-    // provider above
-    // this.$get = [function() {
-    this.listTask = [];
+    this.listTasks = [];
         if (haveDefaultItems) {
-            this.listTask = [
+            this.listTasks = [
                 {
                     taskListId : 0,
                     nameListTask : "Inbox",
                     contentTask:
                                 [
                                     {
-                                        taskId : 1,
+                                        taskId : 0,
                                         nameTask : "Task 1",
-                                        dueDay : "11-03-2016"
+                                        dueDay : "11-03-2016",
+                                        statusTask : "inprogress"
+                                    },
+                                    {
+                                        taskId : 1,
+                                        nameTask : "Task 2", 
+                                        dueDay : "13-03-2016",
+                                        statusTask : "completed"
                                     },
                                     {
                                         taskId : 2,
-                                        nameTask : "Task 2",
-                                        dueDay : "13-03-2016"
+                                        nameTask : "Task 3",
+                                        dueDay : "19-03-2016",
+                                        statusTask : "inprogress"
                                     }
                                 ]
                 },
@@ -57,14 +41,16 @@ app.service('ItemService', function() {
                     contentTask:
                                 [
                                     {
-                                        taskId : 1,
-                                        nameTask : "Task 3",
-                                        dueDay : "11-03-2016"
+                                        taskId : 0,
+                                        nameTask : "Task 4",
+                                        dueDay : "11-03-2016",
+                                        statusTask : "inprogress"
                                     },
                                     {
-                                        taskId : 2,
-                                        nameTask : "Task 4",
-                                        dueDay : "13-03-2016"
+                                        taskId : 1,
+                                        nameTask : "Task 5",
+                                        dueDay : "13-03-2016",
+                                        statusTask : "completed"
                                     }
                                 ]
                 },
@@ -74,59 +60,44 @@ app.service('ItemService', function() {
                     contentTask:
                                 [
                                     {
-                                        taskId : 1,
-                                        nameTask : "Task 5",
-                                        dueDay : "11-03-2016"
+                                        taskId : 0,
+                                        nameTask : "Task 6",
+                                        dueDay : "11-03-2016",
+                                        statusTask : "inprogress"
                                     },
                                     {
-                                        taskId : 2,
-                                        nameTask : "Task 6",
-                                        dueDay : "13-03-2016"
+                                        taskId : 1,
+                                        nameTask : "Task 7",
+                                        dueDay : "13-03-2016",
+                                        statusTask : "inprogress"
                                     }
                                 ]
                 }
             ];
 
         }
-        this.add = function(item) {
-		    this.listTask.push(item);
-		  };
+    this.add = function(item) {
+        this.listTasks.push(item);
+    };
 
-		this.addNewTask = function(obJ,item, index){
-	       for(var i=0; i<this.listTask.length; i++)
-	       {
-	           if(i==index)
-	           {
-	               obJ.push(item);
-	           }
-	       }
-	   }
-
-    // }];
+    this.addNewTask = function(obJ,item, index){
+       for(var i=0; i<this.listTasks.length; i++)
+       {
+           if(i==index)
+           {
+               obJ.push(item);
+           }
+       }
+    };
 
 });
-
-app.config(['ItemServiceProvider',
-    function(ItemServiceProvider) {
-      // To see how the provider can change
-      // configuration, change the value of
-      // shouldHaveDefaults to true and try
-      // running the example
-    var shouldHaveDefaults = true;
-
-      // Get configuration from server
-      // Set shouldHaveDefaults somehow
-      // Assume it magically changes for now
-    if (!shouldHaveDefaults) {
-        ItemServiceProvider.disableDefaultItems();
-    }
-}])
 
 app.controller('TasksController', function($scope, ItemService){
     $scope.moduleService = ItemService;
     $scope.a = {};
     $scope.a.itemNameTask = "";
     $scope.a.itemDueDate = "";
+    $scope.a.itemStatusTask = "inprogress";
     $scope.list = function() {
       return ItemService.list();
     };
@@ -135,7 +106,8 @@ app.controller('TasksController', function($scope, ItemService){
     $scope.addList = function() {
         if($scope.itemName!=null && $scope.itemName!=""){
         ItemService.add({
-            nameListTask: $scope.itemName
+            nameListTask: $scope.itemName,
+            contentTask: []
         });}
         // Clear input fields after push
         $scope.itemName = "";
@@ -143,33 +115,62 @@ app.controller('TasksController', function($scope, ItemService){
     
     // Choose task list
     $scope.valueIndex = 0;
-    $scope.choose = function(indexTemp){
-        var abc = indexTemp;
-        $scope.valueIndex = abc;
+    $scope.choose = function(indexCurrent){
+        var i = indexCurrent;
+        $scope.valueIndex = i;
     };
     
     // Add task to list
    	$scope.addTask = function(indexCurrent) {
-       $scope.moduleService.addNewTask($scope.moduleService.listTask[0].contentTask,{
-           nameTask: $scope.a.itemNameTask,
-           dueDay: $scope.a.itemDueDate
-       }, indexCurrent);
+        if($scope.a.itemNameTask!=null && $scope.a.itemNameTask!=""){
+           $scope.moduleService.addNewTask($scope.moduleService.listTasks[indexCurrent].contentTask,{
+               nameTask: $scope.a.itemNameTask,
+               dueDay: $scope.a.itemDueDate,
+               statusTask: "inprogress",
+               taskId: $scope.moduleService.listTasks[indexCurrent].contentTask.length
+           }, indexCurrent);
 
-       // Clear input fields after push
-       $scope.a.itemNameTask = "";
-       $scope.a.itemDueDate = "";
+           // Clear input fields after push
+           $scope.a.itemNameTask = "";
+           $scope.a.itemDueDate = "";
+        }
    };
+    
+    // Show pencil when hover in
+    $scope.hoverIn = function(){
+        if($scope.a.itemStatusTask=="inprogress")
+            this.hoverEdit = true;
+    }
+    
+    // Hide pencil when hover out
+    $scope.hoverOut = function(){
+         this.hoverEdit = false;
+    }
+    
+    // Show tasks in progress
+    $scope.inProgressTask = function(){
+        $scope.a.itemStatusTask = "inprogress";     
+        $scope.delete = "nonDeleteTask";
+        $scope.checked1 = false;        
+    }
+    
+    // Show completed tasks
+    $scope.completedTask = function(){
+        $scope.a.itemStatusTask = "completed";     
+        $scope.delete = "deleteTask";
+        $scope.checked1 = true; 
+    }
+    
+    // Change status task
+    $scope.changeStatusTask = function(indexCurrent){
+        if($scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask=="inprogress")
+            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask = "completed";
+        else
+            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask = "inprogress";
+    }
+    
 });  
-app.directive('myElement', function () {
-  return {
-    scope: {
-      itemS: '=myElement'
-    },
-    restrict: 'EA',
-    template:
-      '<h4 class="glyphicon glyphicon-tasks"></h4> {{itemS.nameListTask}}'
-    };
-});
+
 app.directive('ngEnter', function () {
     return function (scope, element, attrs) {
         element.bind("keydown keypress", function (event) {

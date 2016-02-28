@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Task List</title>
         <!-- Bootstrap -->
-        <link href="../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/common.css" rel="stylesheet">
+        <link href="../css/library/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/main.css" rel="stylesheet">
         <!-- HTML5 SHim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js does't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -48,8 +48,8 @@
                     <div class="col-md-4">
                         <ul class="nav navbar-nav navbar-right selectButton">
                             <li>
-                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger"></button>                                
-                                <input class="search-input" type="text">
+                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger"></button>
+                                <input class="search-input" type="text" placeholder="Search">
                                 <span id="searchIcon" class="glyphicon glyphicon-search"></span>
                             </li>
                         </ul>
@@ -60,9 +60,9 @@
         <div class="container contentTask" >
             <div class="row">
                 <div class="col-md-9 leftSide">
-                    <div ng-repeat="itemS in moduleService.listTask">
-                        <div ng-if="valueIndex == itemS.taskListId">
-                            <h3>{{itemS.nameListTask}}</h3>
+                    <div>
+                        <div>
+                            <h3>{{moduleService.listTasks[valueIndex].nameListTask}}</h3>
                             <form>
                                 <table>
                                     <tr class="fixInput">
@@ -77,29 +77,21 @@
                             </form>
                         </div>
                     </div>
-                    <span class="form-control" id="notDoneList">
-                        <span>TASKS TO-DOS</span>
-                    </span>
-
-                    <span class="form-control" id="doneList">
-                        <span>COMPLETED TASKS</span>
-                    </span>
-                        
+                    
+                    <ul class="nav nav-pills">
+                      <li role="presentation" class="active" ng-click="inProgressTask()"><a href="#">TASKS TO-DO</a></li>
+                      <li role="presentation" ng-click="completedTask()"><a href="#">COMPLETED TASK</a></li>
+                    </ul>
+                    
+                    <!--   Directive listItem      -->
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="listToDo" ng-repeat="itemS in moduleService.listTask">
-                                
-                                <div class="task form-control" ng-repeat="i in itemS.contentTask" ng-if="valueIndex == itemS.taskListId">
-                                    <!--<input type="checkbox"> 
-                                    <span class="checkTask">{{i.nameTask}}</span>
-                                    <span class="icon-pencil"></span>-->
-                                    <listitem></listitem>
-                                </div> 
-                                
-                                
+                        <div class="col-md-12 listToDo">
+                            <div>
+                                <listitem></listitem>                                
                             </div>
                         </div>
                     </div>  
+                    <!--                    -->
                     
                     <!--   Modal Add List Task     -->
                     <div class="modal fade" id="modalAddList" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
@@ -151,19 +143,26 @@
                         </div>
                     </div>
                     <div class="rim"></div>
-                    <div class="chooseTask" ng-repeat="itemS in moduleService.listTask" my-element="itemS" ng-click="choose($index)"></div>
+                    
+                    <!--   Directive collection   -->
+                    <div class="collections">
+                        <collection></collection>
+                    </div>
+                    <!--                    -->
+                    
                 </div>
             </div>
         </div>
      
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/common.js"></script>
+        <script src="../js/library/bootstrap.min.js"></script>
+        <script src="../js/common/common.js"></script>
         <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
         <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-        <script src="../js/angular.min.js"></script>
+        <script src="../js/library/angular.min.js"></script>
         <script src="../js/app.js"></script>
         <script src="../js/directives/listItem.js"></script>
+        <script src="../js/directives/collections.js"></script>
     </body>
 </html>
