@@ -1,4 +1,4 @@
-var app = angular.module('tasks', []);
+var app = angular.module('tasks', ["pageslide-directive"]);
     
 app.service('ItemService', function() {
     var haveDefaultItems = true;
@@ -18,20 +18,23 @@ app.service('ItemService', function() {
                                     {
                                         taskId : 0,
                                         nameTask : "Task 1",
-                                        dueDay : "11-03-2016",
-                                        statusTask : "inprogress"
+                                        dueDay : "03-07-2016",
+                                        statusTask : "inprogress",
+                                        checkedTask : false
                                     },
                                     {
                                         taskId : 1,
                                         nameTask : "Task 2", 
-                                        dueDay : "13-03-2016",
-                                        statusTask : "completed"
+                                        dueDay : "03-09-2016",
+                                        statusTask : "completed",
+                                        checkedTask : true
                                     },
                                     {
                                         taskId : 2,
                                         nameTask : "Task 3",
-                                        dueDay : "19-03-2016",
-                                        statusTask : "inprogress"
+                                        dueDay : "03-13-2016",
+                                        statusTask : "inprogress",
+                                        checkedTask : false
                                     }
                                 ]
                 },
@@ -43,14 +46,16 @@ app.service('ItemService', function() {
                                     {
                                         taskId : 0,
                                         nameTask : "Task 4",
-                                        dueDay : "11-03-2016",
-                                        statusTask : "inprogress"
+                                        dueDay : "03-07-2016",
+                                        statusTask : "inprogress",
+                                        checkedTask : false
                                     },
                                     {
                                         taskId : 1,
                                         nameTask : "Task 5",
-                                        dueDay : "13-03-2016",
-                                        statusTask : "completed"
+                                        dueDay : "03-13-2016",
+                                        statusTask : "completed",
+                                        checkedTask : true
                                     }
                                 ]
                 },
@@ -62,14 +67,16 @@ app.service('ItemService', function() {
                                     {
                                         taskId : 0,
                                         nameTask : "Task 6",
-                                        dueDay : "11-03-2016",
-                                        statusTask : "inprogress"
+                                        dueDay : "03-07-2016",
+                                        statusTask : "inprogress",
+                                        checkedTask : false
                                     },
                                     {
                                         taskId : 1,
                                         nameTask : "Task 7",
-                                        dueDay : "13-03-2016",
-                                        statusTask : "inprogress"
+                                        dueDay : "03-13-2016",
+                                        statusTask : "inprogress",
+                                        checkedTask : false
                                     }
                                 ]
                 }
@@ -96,8 +103,12 @@ app.controller('TasksController', function($scope, ItemService){
     $scope.moduleService = ItemService;
     $scope.a = {};
     $scope.a.itemNameTask = "";
+    $scope.a.itemRenameTask = "";
+    $scope.a.itemUpdateDueDate = "";
     $scope.a.itemDueDate = "";
     $scope.a.itemStatusTask = "inprogress";
+    $scope.a.indexTask = "";
+    //$scope.checked = false; // This will be binded using the ps-open attribute
     $scope.list = function() {
       return ItemService.list();
     };
@@ -118,6 +129,8 @@ app.controller('TasksController', function($scope, ItemService){
     $scope.choose = function(indexCurrent){
         var i = indexCurrent;
         $scope.valueIndex = i;
+        if($scope.checked==true)
+            $scope.checked = false;
     };
     
     // Add task to list
@@ -127,14 +140,35 @@ app.controller('TasksController', function($scope, ItemService){
                nameTask: $scope.a.itemNameTask,
                dueDay: $scope.a.itemDueDate,
                statusTask: "inprogress",
-               taskId: $scope.moduleService.listTasks[indexCurrent].contentTask.length
+               taskId: $scope.moduleService.listTasks[indexCurrent].contentTask.length,
+               checkedTask: false
            }, indexCurrent);
 
            // Clear input fields after push
            $scope.a.itemNameTask = "";
            $scope.a.itemDueDate = "";
         }
-   };
+    };
+    
+    // Rename task
+    $scope.renameTask = function(indexCurrent){
+        if($scope.a.itemRenameTask!=null && $scope.a.itemRenameTask!=""){
+            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].nameTask = $scope.a.itemRenameTask;
+        }
+        
+        // Clear input fields after push
+        $scope.a.itemRenameTask = "";
+    }
+    
+    // Update due date
+    $scope.updateTimeTask = function(indexCurrent){
+        if($scope.a.itemUpdateDueDate!=null && $scope.a.itemUpdateDueDate!=""){
+            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].dueDay = $scope.a.itemUpdateDueDate;
+        }
+        
+        // Clear input fields after push
+        $scope.a.itemUpdateDueDate = "";
+    }
     
     // Show pencil when hover in
     $scope.hoverIn = function(){
@@ -163,24 +197,40 @@ app.controller('TasksController', function($scope, ItemService){
     
     // Change status task
     $scope.changeStatusTask = function(indexCurrent){
-        if($scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask=="inprogress")
+        if($scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask=="inprogress"){
             $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask = "completed";
-        else
+            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].checkedTask = true;
+        }
+        else{
             $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask = "inprogress";
+            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].checkedTask = false;
+        }
     }
+    
+    // Show or close pageslide task
+//    $scope.toggle = function(indexCurrent){
+//        if($scope.a.indexTask==indexCurrent || ($scope.a.indexTask!=indexCurrent && $scope.checked==false)){
+//            $scope.checked = !$scope.checked;
+//        }
+//        $scope.a.indexTask = indexCurrent;
+//        $scope.a.itemUpdateDueDate = $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].dueDay;
+//    }
     
 });  
 
-app.directive('ngEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.ngEnter);
-                });
- 
-                event.preventDefault();
-            }
-        });
-    };
-});
+app.controller('pageslideCtrl',['$scope',function($scope){
+    $scope.checked = false; // This will be binded using the ps-open attribute
+    
+    // Show or close pageslide task
+    $scope.toggle = function(indexCurrent){
+        if($scope.a.indexTask==indexCurrent || ($scope.a.indexTask!=indexCurrent && $scope.checked==false)){
+            $scope.checked = !$scope.checked;
+        }
+        $scope.a.indexTask = indexCurrent;
+        $scope.a.itemUpdateDueDate = $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].dueDay;
+    }
+    
+    $scope.toggle2 = function(){
+        $scope.checked = !$scope.checked;
+    }
+}]);

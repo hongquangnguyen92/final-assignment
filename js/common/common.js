@@ -7,12 +7,20 @@ $(document).ready(function(){
     });
 
     $(function () {
-      $("#datepicker").datepicker({ 
+      $("#datepickerSetDate").datepicker({ 
             autoclose: true, 
             todayHighlight: true
       });
     });
-
+    
+    $(function () {
+      $("#datepickerUpdate").datepicker({ 
+            autoclose: true, 
+            todayHighlight: true,
+            format: 'mm-dd-yyyy'
+      });        
+    });
+    
     $('#closemodal').click(function() {
         $('#savemodal').attr('disabled', 'disabled');
     });

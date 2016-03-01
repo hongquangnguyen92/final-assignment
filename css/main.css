@@ -10,9 +10,14 @@ nav div div{
     width: 40px;
     margin-top: 10px;
 }
+
 .icon-pencil{
     float: right;
-    display: none;
+}
+.dueDate{
+    float: right;
+    color: darkcyan;
+    margin-right: 30px;
 }
 .nav-pills{
     margin-top: 10px;
@@ -41,7 +46,9 @@ nav div div{
     font-size: 11px;
     width: 133px; 
 }
-
+.ng-pageslide {
+    background: #eee;
+}
 /*** Set scrollbar ***/
 ::-webkit-scrollbar {
     width: 5px;
@@ -112,7 +119,7 @@ nav div div{
     cursor: pointer;
     font-weight: 100;
 }
-.icon-menu, .icon-due-time{
+.icon-menu, .icon-due-time, .icon-pencil{
     cursor: pointer;
 }
 .icon-due-time{
@@ -132,6 +139,11 @@ nav div div{
 }
 .checkTask{
     margin-left: 10px;
+    display:inline-block;
+    width:80%;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
 }
 .leftSide{
     padding-top: 50px;
@@ -154,6 +166,63 @@ h4{
     margin-right: 10px;
     cursor: pointer;
 }
+
+.leftTitleSidePage{
+    padding: 15px 0px 0px 17px;
+    float: left;
+    font-size: 20px;
+    clear: both
+}
+.nameSidePage{
+    padding: 18px 0px 0px 57px;
+    display:block;
+    width:290px;
+    word-wrap:break-word;
+
+}
+.leftInputSidePage{
+    height: 17px;
+    width: 17px
+}
+.leftIconSidePage .form-control{
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+    border-right: 0;
+}
+.contentSidePage .form-control{
+    width: 95%;
+    margin-top: -5px;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.leftIconSidePage{
+    padding: 9px 0px 0px 5px;
+    float: left;
+    font-size: 20px;
+    clear: both
+}
+
+.spanIcon{
+    background: white;
+    height: 35px;
+    width: 30px
+}
+.titleSidePage{
+    background: darkcyan;
+    min-height: 50px;
+    height: auto;
+    color: white
+}
+.timeSidePage, .remindSidePage{
+    height: 50px;
+}
+.contentSidePage{
+    padding: 15px 0px 0px 40px;
+}
+.remindSidePage .contentSidePage{
+    margin-top: -6px;
+}
+
 .collections{
     overflow-y : auto;
     overflow-x: hidden;
@@ -181,6 +250,9 @@ h4{
     .icon-due-time{
         margin-left: 20px
     }
+    .checkTask{
+        width: 75%
+    }
 }
 @media (max-width: 990px){
     .listTask{
@@ -197,9 +269,27 @@ h4{
         display: none;
     }
 }
+@media (max-width: 650px){
+    .checkTask{
+        width: 65%
+    }
+}
 @media (max-width: 500px){
     .thingToDo{
         width: 100%;
+    }
+    .checkTask{
+        width: 60%
+    }
+}
+@media (max-width: 450px){
+    .checkTask{
+        width: 50%
+    }
+}
+@media (max-width: 350px){
+    .checkTask{
+        width: 40%
     }
 }
 @media (max-width: 290px){
@@ -209,6 +299,9 @@ h4{
 
     .nav-pills > li:not(first-child){
         width: 55%; 
+    }
+    .checkTask{
+        width: 30%
     }
 }
 #wrapper {
@@ -241,11 +334,39 @@ h4{
 .createList{
     margin-top: 5px;
 }
+span.button {
+/*
+    background-color: darkcyan;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius:6px;
+    color: #fff;
+    font-family: 'Oswald';
+    font-size: 20px;
+    cursor: pointer;
+    margin-left: 8px;
+*/
+    cursor: pointer;
+    margin-left: 17px;
+}
+span.button span{
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
 body{
     background: url(../images/background_body.jpg) no-repeat;
     background-size: cover;
     height: 100%;
+/*
+    position: absolute;
+  transition: all 0.5s ease;
+*/
 }
 html{
     height: 100%;
+/*
+    
+    overflow-x: hidden;
+*/
 }
