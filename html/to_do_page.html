@@ -22,33 +22,82 @@
                 <div class="row">
                       
                     <div class="navbar-header col-md-8">
-<!--
                         <div class="dropdown navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu
                             <span class="caret"></span></button>
                             
-                            <ul class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="menu1" role="menu">  
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">+ Add List</a></li>
+                            <ul class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="menu1" role="menu"> 
+                                <li role="presentation">              
+                                    <a role="menuitem" tabindex="-1" href="#">
+                                        <label class="icon-name-primary-menu">Q</label> 
+                                        <label class="nameListTaskMenu">hongquangnguyen92@gmail.com</label>
+                                    </a>
+                                </li>
+                                <li role="presentation">              
+                                    <a role="menuitem" tabindex="-1" href="#">
+                                        <label class="glyphicon glyphicon-log-out"></label>
+                                        Sign out
+                                    </a>
+                                </li>
                                 <li role="presentation" class="divider"></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Inbox</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Wake Up</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Wake Up</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Wake Up</a></li>
-                                <li role="presentation"><a role="menuitem" tabindex="-1" href="#">Wake Up</a></li>
+                                <li role="presentation">
+                                    <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#modalAddList">
+                                        <label class="glyphicon glyphicon-plus"></label>
+                                        Add list
+                                    </a>
+                                </li>
+                                <li role="presentation" class="divider"></li>
+                                <li role="presentation" ng-repeat="itemS in moduleService.listTasks" ng-click="choose($index)">
+                                    <a role="menuitem" tabindex="-1" href="#">{{itemS.nameListTask}}</a>
+                                </li>
                             </ul>
                         </div>
--->
+<!--
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
                         </button>
+-->
                         <a class="navbar-brand">TASKS</a>
                     </div>
                     <div class="col-md-4">
                         <ul class="nav navbar-nav navbar-right selectButton">
                             <li>
-                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger"></button>
+<!--                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger"></button>-->
+                                
+                                
+                                <div class="btn-group" id="menu-toggle">
+                                    <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        Menu <span class="caret"></span>
+                                    </button>
+                                    <ul class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="menu1" role="menu"> 
+                                        <li role="presentation">              
+                                            <a role="menuitem" tabindex="-1" href="#">
+                                                <label class="icon-name-primary-menu">Q</label> 
+                                                <label class="nameListTaskMenu">hongquangnguyen92@gmail.com</label>
+                                            </a>
+                                        </li>
+                                        <li role="presentation">              
+                                            <a role="menuitem" tabindex="-1" href="#">
+                                                <label class="glyphicon glyphicon-log-out"></label>
+                                                Sign out
+                                            </a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation">
+                                            <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#modalAddList">
+                                                <label class="glyphicon glyphicon-plus"></label>
+                                                Add list
+                                            </a>
+                                        </li>
+                                        <li role="presentation" class="divider"></li>
+                                        <li role="presentation" ng-repeat="itemS in moduleService.listTasks" ng-click="choose($index)">
+                                            <a role="menuitem" tabindex="-1" href="#">{{itemS.nameListTask}}</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                
                                 <input class="search-input" type="text" placeholder="Search">
                                 <span id="searchIcon" class="glyphicon glyphicon-search"></span>
                             </li>
@@ -62,7 +111,11 @@
                 <div class="col-md-9 leftSide">
                     <div>
                         <div>
-                            <h3>{{moduleService.listTasks[valueIndex].nameListTask}}</h3>
+                            <h3>
+                                {{moduleService.listTasks[valueIndex].nameListTask}} 
+                                <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalAddList" ng-click="setInitNameTask()"></span>
+                            </h3>
+                            
                             <form>
                                 <table>
                                     <tr class="fixInput">
@@ -134,7 +187,14 @@
                 <div class="col-md-3 listTask" id="wrapper">
                     <label class="icon-name-primary">Q</label>
                     <label class="full-name-primary">Quang Nguyen</label>
-                    <span class="glyphicon glyphicon-menu-down icon-menu"></span>
+                    <div class="btn-group">
+                        <span class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-menu-down icon-menu"></span>
+                        </span>
+                        <ul class="dropdown-menu-right dropdown-menu" role="menu">
+                            <li><a href="#">Sign out</a></li>
+                        </ul>
+                    </div>
                     <span class="glyphicon glyphicon-bell icon-due-time"></span>
                     <div>
                         <div class="addList">
@@ -149,16 +209,6 @@
                         <collection></collection>
                     </div>
                     <!--                    -->
-                    <div ng-controller="pageslideCtrl">
-                <a class="tiny button" href="" ng-click="toggle2()">Go west</a>
-                 <div pageslide ps-open="checked" ps-side="left">
-                    <div style="padding:20px" id="demo-right">
-                        <h2>Hello Pageslide</h2>
-                        <p>Put here whatever you want</p>
-                        <a ng-click="toggle2()" class="button" >Close</a>
-                    </div>
-                </div>
-            </div>
                     
                 </div>
             </div>

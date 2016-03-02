@@ -108,6 +108,7 @@ app.controller('TasksController', function($scope, ItemService){
     $scope.a.itemDueDate = "";
     $scope.a.itemStatusTask = "inprogress";
     $scope.a.indexTask = "";
+    $scope.valueIndex = 0;
     //$scope.checked = false; // This will be binded using the ps-open attribute
     $scope.list = function() {
       return ItemService.list();
@@ -118,14 +119,21 @@ app.controller('TasksController', function($scope, ItemService){
         if($scope.itemName!=null && $scope.itemName!=""){
         ItemService.add({
             nameListTask: $scope.itemName,
+            taskListId: $scope.moduleService.listTasks.length,
             contentTask: []
         });}
         // Clear input fields after push
         $scope.itemName = "";
+        // Set value id to choose task list
+        $scope.valueIndex = $scope.moduleService.listTasks.length-1;
     };
     
+    // Set init name task for modal 
+    $scope.setInitNameTask = function(){
+        $scope.itemName = $scope.moduleService.listTasks[$scope.valueIndex].nameListTask;
+    }
+    
     // Choose task list
-    $scope.valueIndex = 0;
     $scope.choose = function(indexCurrent){
         var i = indexCurrent;
         $scope.valueIndex = i;

@@ -4,11 +4,19 @@
 nav div div{
     height: 40px;
 }
+h3 span{
+    font-size: 17px
+}
+#closemodal{
+    width: 100px;
+    margin-right: 50px;
+}
+#savemodal{
+    width: 100px;
+    margin-right: 50px
+}
 #menu-toggle{
     display: none;
-    height: 25px;
-    width: 40px;
-    margin-top: 10px;
 }
 
 .icon-pencil{
@@ -79,6 +87,16 @@ nav div div{
 .modal-title{
     text-align: center;
 }
+.icon-name-primary-menu{
+    border-radius: 50%;
+    background-color: darkcyan;
+    width: 23px;
+    height: 23px;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    float: left;
+}
 .icon-name, .icon-name-primary{
     border-radius: 50%;
     background-color: darkcyan;
@@ -136,6 +154,17 @@ nav div div{
 }
 .fixInput input{
     border-radius: 0;
+}
+.nameListTaskMenu{
+    margin-left: 10px;
+    display:inline-block;
+    width:100px;
+    white-space: nowrap;
+    overflow:hidden !important;
+    text-overflow: ellipsis;
+}
+.scrollable-menu{
+    max-height: 500px !important
 }
 .checkTask{
     margin-left: 10px;
@@ -260,12 +289,15 @@ h4{
     }
     #menu-toggle{
         display: block;
-        border: 0;
-        border-color: #f8f8f8;
-        outline: none;
-        background-color: #f8f8f8;
+        height: 25px;
+        margin-top: 10px;
     }
     #searchIcon, .search-input{
+        display: none;
+    }
+}
+@media (max-width: 768px){
+    #menu-toggle{
         display: none;
     }
 }
