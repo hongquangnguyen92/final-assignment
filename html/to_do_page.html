@@ -7,6 +7,7 @@
         <title>Task List</title>
         <!-- Bootstrap -->
         <link href="../css/library/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/library/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
         <link href="../css/main.css" rel="stylesheet">
         <!-- HTML5 SHim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js does't work if you view the page via file:// -->
@@ -21,7 +22,8 @@
             <div class="container">
                 <div class="row">
                       
-                    <div class="navbar-header col-md-8">
+                    <div class="navbar-header col-md-8" ng-controller="pageslideCtrl">
+<!--
                         <div class="dropdown navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                             <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu
                             <span class="caret"></span></button>
@@ -52,21 +54,85 @@
                                 </li>
                             </ul>
                         </div>
-<!--
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
 -->
+                       
+                        
+                             <div pageslide ps-open="$root.checkedleft" ps-side="left" ps-key-listener="true">
+                                 <div class="sidePage">
+                                    <span ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')" class="closePageSlider">
+                                            <span class="glyphicon glyphicon-remove"></span>
+                                    </span>
+                                    <div class="titleSidePage">
+                                        <div class="nameSidePage1">
+                                            <label class="icon-name-primary">Q</label>
+                                            <label class="full-name-primary">Quang Nguyen</label>
+                                            <div class="btn-group">
+                                                <span class="dropdown-toggle" data-toggle="dropdown">
+                                                    <span class="glyphicon glyphicon-chevron-down"></span>
+                                                </span>
+                                                <ul class="dropdown-menu-right dropdown-menu" role="menu">
+                                                    <li><a href="#">Sign out</a></li>
+                                                </ul>
+                                            </div>
+                                            <span class="glyphicon glyphicon-bell icon-due-time"></span>
+                                        </div>
+                                    </div>
+                                     <div class="addList1">
+                                        <h4 data-toggle="modal" data-target="#modalAddList" class="glyphicon glyphicon-plus"></h4> 
+                                        <span data-toggle="modal" data-target="#modalAddList" class="addNewList">Add List</span>
+                                    </div>
+                                    <div class="rim"></div>
+                                    <div class="collectionSmall">
+                                        <collection></collection>
+                                    </div>                                     
+                                 </div>                              
+                            </div>
+                    
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        
                         <a class="navbar-brand">TASKS</a>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-4" ng-controller="pageslideCtrl">
                         <ul class="nav navbar-nav navbar-right selectButton">
                             <li>
-<!--                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger"></button>-->
+                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger" ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')"></button>
                                 
-                                
+                                <div pageslide ps-open="$root.checkedleft" ps-side="left" ps-key-listener="true">
+                                     <div class="sidePage">
+                                        <span ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')" class="closePageSlider">
+                                                <span class="glyphicon glyphicon-remove"></span>
+                                        </span>
+                                        <div class="titleSidePage">
+                                            <div class="nameSidePage1">
+                                                <label class="icon-name-primary">Q</label>
+                                                <label class="full-name-primary">Quang Nguyen</label>
+                                                <div class="btn-group">
+                                                    <span class="dropdown-toggle" data-toggle="dropdown">
+                                                        <span class="glyphicon glyphicon-chevron-down"></span>
+                                                    </span>
+                                                    <ul class="dropdown-menu-right dropdown-menu" role="menu">
+                                                        <li><a href="#">Sign out</a></li>
+                                                    </ul>
+                                                </div>
+                                                <span class="glyphicon glyphicon-bell icon-due-time"></span>
+                                            </div>
+                                        </div>
+                                         <div class="addList1">
+                                            <h4 data-toggle="modal" data-target="#modalAddList" class="glyphicon glyphicon-plus"></h4> 
+                                            <span data-toggle="modal" data-target="#modalAddList" class="addNewList">Add List</span>
+                                        </div>
+                                        <div class="rim"></div>
+                                        <div class="collectionSmall">
+                                            <collection></collection>
+                                        </div>                                     
+                                     </div>                              
+                                </div>
+                            
+<!--
                                 <div class="btn-group" id="menu-toggle">
                                     <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown">
                                         Menu <span class="caret"></span>
@@ -97,9 +163,12 @@
                                         </li>
                                     </ul>
                                 </div>
+-->
                                 
+<!--
                                 <input class="search-input" type="text" placeholder="Search">
                                 <span id="searchIcon" class="glyphicon glyphicon-search"></span>
+-->
                             </li>
                         </ul>
                     </div>           
@@ -112,8 +181,8 @@
                     <div>
                         <div>
                             <h3>
-                                {{moduleService.listTasks[valueIndex].nameListTask}} 
-                                <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalAddList" ng-click="setInitNameTask()"></span>
+                                {{listTasks[valueIndex].nameListTask}} 
+                                <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEditList" ng-click="setInitNameTask()"></span>
                             </h3>
                             
                             <form>
@@ -122,7 +191,7 @@
                                         <td class="thingToDo">
                                             <input type="text" class="form-control" placeholder="Add your task" ng-enter="addTask(valueIndex)" ng-model="a.itemNameTask">
                                         </td>
-                                        <td id="datepickerSetDate" class="input-group date sizeDate" data-date-format="mm-dd-yyyy">
+                                        <td id="datepickerSetDate" class="input-group date sizeDate" data-date-format="dd-mm-yyyy">
                                             <input type="text" class="form-control input-group-addon" placeholder="Set time" ng-model="a.itemDueDate">
                                         </td>
                                     </tr>
@@ -145,7 +214,7 @@
                         </div>
                     </div>  
                     <!--                    -->
-                    
+                  
                     <!--   Modal Add List Task     -->
                     <div class="modal fade" id="modalAddList" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
                         <div class="modal-dialog" role="document">
@@ -183,9 +252,46 @@
                     </div>
                     <!--                    -->
                     
+                    <!--   Modal Edit List Task     -->
+                    <div class="modal fade" id="modalEditList" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <!--  Form modal    -->
+                                <form id="addForm" method="post">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title">Add New List</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                            <div class="form-group">
+                                                <input type="text" class="form-control" id="list-name-edit" placeholder="List Name" ng-model="editName" name="list-name-edit">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="member-name" class="control-label">List Member</label>
+                                                <span class="glyphicon glyphicon-user"></span>
+                                                <input type="text" class="form-control" id="member-name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label icon-name">Q</label>
+                                                <label class="control-label full-name">Quang Nguyen</label>
+                                                <label class="control-label icon-owner">Owner</label>
+                                                <span class="control-span email-name">hongquangnguyen92@gmail.com</span>
+                                            </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" id="closeeditmodal" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary" id="saveeditmodal" ng-click="editList()">Done</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    -->
+                    
                 </div>
                 <div class="col-md-3 listTask" id="wrapper">
-                    <label class="icon-name-primary">Q</label>
+                    <label class="icon-name-primary">{{firstNameLetter}}</label>
                     <label class="full-name-primary">Quang Nguyen</label>
                     <div class="btn-group">
                         <span class="dropdown-toggle" data-toggle="dropdown">
@@ -196,6 +302,7 @@
                         </ul>
                     </div>
                     <span class="glyphicon glyphicon-bell icon-due-time"></span>
+                    <span></span>
                     <div>
                         <div class="addList">
                             <h4 data-toggle="modal" data-target="#modalAddList" class="glyphicon glyphicon-plus"></h4> 
@@ -209,11 +316,11 @@
                         <collection></collection>
                     </div>
                     <!--                    -->
-                    
+                  
                 </div>
             </div>
         </div>
-     
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="../js/library/bootstrap.min.js"></script>
         <script src="../js/common/common.js"></script>
@@ -221,10 +328,15 @@
         <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
         <script src="../js/library/angular.min.js"></script>
+        <script src="http://code.angularjs.org/1.0.3/angular-resource.min.js"></script>
+        <script src="../js/library/angular-route.js"></script>
+        <script src="../js/library/angular-ui-router.js"></script>
         <script src="../js/library/angular-pageslide-directive.js"></script>
+        <script src="../js/library/angular-animate.js"></script>
         <script src="../js/app.js"></script>
         <script src="../js/directives/listItem.js"></script>
         <script src="../js/directives/collections.js"></script>
         <script src="../js/directives/enterEvent.js"></script>
+        <script type="text/javascript" src="../js/library/bootstrap-datetimepicker.js" charset="UTF-8"></script>
     </body>
 </html>

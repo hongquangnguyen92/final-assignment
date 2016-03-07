@@ -1,0 +1,17 @@
+{"listTask" : [
+  {
+    "userId": "admin",
+    "passWord": "123",
+    "userName": "Admin"
+  },
+  {
+    "userId": "hongquangnguyen92@gmail.com",
+    "passWord": "123",
+    "userName": "Quang Nguyen"
+  },
+  {
+    "userId": "jerry@gmail.com",
+    "passWord": "123",
+    "userName": "Jerry"
+  }
+]}

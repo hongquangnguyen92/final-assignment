@@ -7,11 +7,11 @@ nav div div{
 h3 span{
     font-size: 17px
 }
-#closemodal{
+#closemodal, #closeeditmodal{
     width: 100px;
     margin-right: 50px;
 }
-#savemodal{
+#savemodal, #saveeditmodal{
     width: 100px;
     margin-right: 50px
 }
@@ -55,7 +55,7 @@ h3 span{
     width: 133px; 
 }
 .ng-pageslide {
-    background: #eee;
+    background-color: #eee;
 }
 /*** Set scrollbar ***/
 ::-webkit-scrollbar {
@@ -108,9 +108,23 @@ h3 span{
     font-size: 20px;
     float: left;
 }
+.nameSidePage1 .icon-name-primary{
+    background-color: forestgreen;
+}
+.addList1{
+    margin-top: 10px;
+    margin-left: 20px
+}
+.collectionSmall h4{
+    padding-left: 20px
+}
+.nameSidePage1{
+    padding: 13px 0px 0px 17px;
+}
 .full-name, .full-name-primary{
     font-size: 17px;
-    margin-left: 10px
+    margin-left: 10px;
+    
 }
 .icon-owner{
     border-radius: 30%;
@@ -196,18 +210,26 @@ h4{
     cursor: pointer;
 }
 
-.leftTitleSidePage{
-    padding: 15px 0px 0px 17px;
-    float: left;
-    font-size: 20px;
-    clear: both
+.closePageSlider{
+    padding: 20px 30px 0px 0px;
+    float: right;
+    font-size: 17px;
+    cursor: pointer;
+    width: 10px;
+    color: white
 }
+/*
+.leftTitleSidePage{
+    padding: 15px 20px 0px 0px;
+    float: right;
+}
+*/
 .nameSidePage{
-    padding: 18px 0px 0px 57px;
+    padding: 18px 0px 0px 17px;
     display:block;
-    width:290px;
+    width:90%;
     word-wrap:break-word;
-
+    font-size: 16px
 }
 .leftInputSidePage{
     height: 17px;
@@ -229,6 +251,23 @@ h4{
     float: left;
     font-size: 20px;
     clear: both
+}
+.completeButton{
+    padding: 9px 0px 0px 5px;
+    float: left;
+    font-size: 20px;
+    clear: both;
+    width: 140px;
+    text-align: center;
+    cursor: pointer;
+}
+.saveButton{
+    width: 170px;
+    margin-top: -13px;
+    margin-left: 121px;
+    padding: 15px 0px 0px 40px;
+    text-align: center;
+    cursor: pointer;
 }
 
 .spanIcon{
@@ -260,10 +299,10 @@ h4{
 }
 .chooseTask{
     cursor: pointer;
-    height: 30px;
+    height: 35px;
 }
 .chooseTask:hover{
-    background-color: antiquewhite;
+    background-color: darkseagreen;
 }
 .search-input{
     margin-top: 15px;
@@ -288,9 +327,18 @@ h4{
         display: none;
     }
     #menu-toggle{
+/*
         display: block;
         height: 25px;
         margin-top: 10px;
+*/
+        height: 25px;
+        margin-top: 10px;
+        display: block;
+        border: 0;
+        border-color: #f8f8f8;
+        outline: none;
+        background-color: #f8f8f8;
     }
     #searchIcon, .search-input{
         display: none;
@@ -321,7 +369,7 @@ h4{
 }
 @media (max-width: 350px){
     .checkTask{
-        width: 40%
+        width: 35%
     }
 }
 @media (max-width: 290px){
