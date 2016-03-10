@@ -2,21 +2,150 @@
   {
     "userId": "admin",
     "passWord": "123",
-    "userName": "Admin"
+    "userName": "Admin",
+    "collection" :[{
+            "taskListId": 0,
+            "nameListTask": "Inbox",
+            "contentTask": [
+              {
+                "taskId": 0,
+                "nameTask": "Attribute work",
+                "dueDay": "07-03-2016",
+                "reminder": "03-04-2016 15:41",
+                "statusTask": "inprogress",
+                "remindActive": true,
+                "checkedTask": false
+              },
+              {
+                "taskId": 1,
+                "nameTask": "Observe work",
+                "dueDay": "09-03-2016",
+                "reminder": "03-03-2016 22:30",
+                "statusTask": "completed",
+                "remindActive": true,
+                "checkedTask": true
+              }
+            ]
+          },
+          {
+            "taskListId": 1,
+            "nameListTask": "Today",
+            "contentTask": []
+          },        
+          {
+            "taskListId": 2,
+            "nameListTask": "Design web shop",
+            "contentTask": [
+              {
+                "taskId": 2,
+                "nameTask": "Make some pictures",
+                "dueDay": "07-03-2016",
+                "reminder": "",
+                "statusTask": "inprogress",
+                "remindActive": true,
+                "checkedTask": false,
+                "assignTo": "hongquangnguyen92@gmail.com"
+              }
+            ]
+        }]
   },
   {
     "userId": "hongquangnguyen92@gmail.com",
     "passWord": "123",
-    "userName": "Quang Nguyen"
+    "userName": "Quang Nguyen",
+    "collection" :[{
+            "taskListId": 3,
+            "nameListTask": "Inbox",
+            "contentTask": [
+                  {
+                    "taskId": 3,
+                    "nameTask": "Wake Up",
+                    "dueDay": "07-03-2016",
+                    "reminder": "03-04-2016 15:41",
+                    "statusTask": "inprogress",
+                    "remindActive": true,
+                    "checkedTask": false
+                  },
+                  {
+                    "taskId": 4,
+                    "nameTask": "Workout",
+                    "dueDay": "09-03-2016",
+                    "reminder": "03-03-2016 22:30",
+                    "statusTask": "completed",
+                    "remindActive": true,
+                    "checkedTask": true
+                  }
+            ]
+          },
+          {
+            "taskListId": 4,
+            "nameListTask": "Today",
+            "contentTask": []
+          },        
+          {
+            "taskListId": 5,
+            "nameListTask": "Design web shop",
+            "contentTask": [
+                  {
+                    "taskId": 5,
+                    "nameTask": "Design layout",
+                    "dueDay": "07-03-2016",
+                    "reminder": "",
+                    "statusTask": "inprogress",
+                    "remindActive": true,
+                    "checkedTask": false,
+                    "assignTo": "hongquangnguyen92@gmail.com"
+                  }
+            ]
+        }]
   },
   {
     "userId": "jerry@gmail.com",
     "passWord": "123",
-    "userName": "Jerry"
-  },
-  {
-    "userId": "tomrider@gmail.com",
-    "passWord": "123",
-    "userName": "Tom Rider"
-  }
-]}
+    "userName": "Jerry",
+    "collection" :[{
+            "taskListId": 6,
+            "nameListTask": "Inbox",
+            "contentTask": [
+              {
+                "taskId": 6,
+                "nameTask": "Go waking",
+                "dueDay": "07-03-2016",
+                "reminder": "03-04-2016 15:41",
+                "statusTask": "inprogress",
+                "remindActive": true,
+                "checkedTask": false
+              },
+              {
+                "taskId": 7,
+                "nameTask": "Push up",
+                "dueDay": "09-03-2016",
+                "reminder": "03-03-2016 22:30",
+                "statusTask": "completed",
+                "remindActive": true,
+                "checkedTask": true
+              }
+            ]
+          },
+          {
+            "taskListId": 7,
+            "nameListTask": "Today",
+            "contentTask": []
+          },        
+          {
+            "taskListId": 8,
+            "nameListTask": "Go shopping",
+            "contentTask": [
+              {
+                "taskId": 8,
+                "nameTask": "Buy some food",
+                "dueDay": "07-03-2016",
+                "reminder": "",
+                "statusTask": "inprogress",
+                "remindActive": true,
+                "checkedTask": false,
+                "assignTo": "hongquangnguyen92@gmail.com"
+              }
+            ]
+        }]  
+}]}
