@@ -13,5 +13,10 @@
     "userId": "jerry@gmail.com",
     "passWord": "123",
     "userName": "Jerry"
+  },
+  {
+    "userId": "tomrider@gmail.com",
+    "passWord": "123",
+    "userName": "Tom Rider"
   }
 ]}

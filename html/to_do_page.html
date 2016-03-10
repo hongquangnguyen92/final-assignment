@@ -1,174 +1,58 @@
-<!DOCTYPE html>
-<html lang="en" ng-app="tasks">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Task List</title>
-        <!-- Bootstrap -->
-        <link href="../css/library/bootstrap.min.css" rel="stylesheet">
-        <link href="../css/library/bootstrap-datetimepicker.min.css" rel="stylesheet" media="screen">
-        <link href="../css/main.css" rel="stylesheet">
-        <!-- HTML5 SHim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js does't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
-    </head>
-    <body ng-controller="TasksController">
-
+        
         <nav class="navbar navbar-default">
             <div class="container">
                 <div class="row">
                       
-                    <div class="navbar-header col-md-8" ng-controller="pageslideCtrl">
-<!--
-                        <div class="dropdown navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Menu
-                            <span class="caret"></span></button>
-                            
-                            <ul class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="menu1" role="menu"> 
-                                <li role="presentation">              
-                                    <a role="menuitem" tabindex="-1" href="#">
-                                        <label class="icon-name-primary-menu">Q</label> 
-                                        <label class="nameListTaskMenu">hongquangnguyen92@gmail.com</label>
-                                    </a>
-                                </li>
-                                <li role="presentation">              
-                                    <a role="menuitem" tabindex="-1" href="#">
-                                        <label class="glyphicon glyphicon-log-out"></label>
-                                        Sign out
-                                    </a>
-                                </li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#modalAddList">
-                                        <label class="glyphicon glyphicon-plus"></label>
-                                        Add list
-                                    </a>
-                                </li>
-                                <li role="presentation" class="divider"></li>
-                                <li role="presentation" ng-repeat="itemS in moduleService.listTasks" ng-click="choose($index)">
-                                    <a role="menuitem" tabindex="-1" href="#">{{itemS.nameListTask}}</a>
-                                </li>
-                            </ul>
-                        </div>
--->
-                       
+                    <div class="navbar-header col-md-8" ng-controller="pageslideCtrl">                       
                         
-                             <div pageslide ps-open="$root.checkedleft" ps-side="left" ps-key-listener="true">
+                        <!--   Page Slider Left       -->
+                        <div class="hidePageSlider">
+                            <div pageslide ps-open="$root.checkedleft" ps-side="left" ps-key-listener="true" id="pageslide" ps-size="320px">
                                  <div class="sidePage">
-                                    <span ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')" class="closePageSlider">
+                                    <span ng-click="toggle($root.listTasks[$root.valueIndex].contentTask[a.indexTask].taskId,'left')" class="closePageSlider">
                                             <span class="glyphicon glyphicon-remove"></span>
                                     </span>
                                     <div class="titleSidePage">
                                         <div class="nameSidePage1">
-                                            <label class="icon-name-primary">Q</label>
-                                            <label class="full-name-primary">Quang Nguyen</label>
+                                            <label class="icon-name-primary">{{firstNameLetter}}</label>
+                                            <label class="full-name-primary">{{fullName}}</label>
                                             <div class="btn-group">
                                                 <span class="dropdown-toggle" data-toggle="dropdown">
                                                     <span class="glyphicon glyphicon-chevron-down"></span>
                                                 </span>
-                                                <ul class="dropdown-menu-right dropdown-menu" role="menu">
-                                                    <li><a href="#">Sign out</a></li>
+                                                <ul class=" dropdown-menu" role="menu">
+                                                    <li><a ng-click="outToClose()">Sign out</a></li>
                                                 </ul>
                                             </div>
-                                            <span class="glyphicon glyphicon-bell icon-due-time"></span>
+                                            <span class="glyphicon glyphicon-bell icon-due-time1"></span>
                                         </div>
                                     </div>
                                      <div class="addList1">
-                                        <h4 data-toggle="modal" data-target="#modalAddList" class="glyphicon glyphicon-plus"></h4> 
-                                        <span data-toggle="modal" data-target="#modalAddList" class="addNewList">Add List</span>
+                                        <h4 ng-click="openAdd()" class="glyphicon glyphicon-plus"></h4> 
+                                        <span ng-click="openAdd()" class="addNewList">Add List</span>
                                     </div>
                                     <div class="rim"></div>
                                     <div class="collectionSmall">
                                         <collection></collection>
-                                    </div>                                     
-                                 </div>                              
+                                    </div>      
+                                 </div>                                                 
                             </div>
-                    
-                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')">
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                                <span class="icon-bar"></span>
-                            </button>
+                        </div>
+                        <!--                    -->
+                            
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" ng-click="toggle($root.listTasks[$root.valueIndex].contentTask[a.indexTask].taskId,'left')">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
                         
                         <a class="navbar-brand">TASKS</a>
                     </div>
                     <div class="col-md-4" ng-controller="pageslideCtrl">
+                        
                         <ul class="nav navbar-nav navbar-right selectButton">
                             <li>
-                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger" ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')"></button>
-                                
-                                <div pageslide ps-open="$root.checkedleft" ps-side="left" ps-key-listener="true">
-                                     <div class="sidePage">
-                                        <span ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'left')" class="closePageSlider">
-                                                <span class="glyphicon glyphicon-remove"></span>
-                                        </span>
-                                        <div class="titleSidePage">
-                                            <div class="nameSidePage1">
-                                                <label class="icon-name-primary">Q</label>
-                                                <label class="full-name-primary">Quang Nguyen</label>
-                                                <div class="btn-group">
-                                                    <span class="dropdown-toggle" data-toggle="dropdown">
-                                                        <span class="glyphicon glyphicon-chevron-down"></span>
-                                                    </span>
-                                                    <ul class="dropdown-menu-right dropdown-menu" role="menu">
-                                                        <li><a href="#">Sign out</a></li>
-                                                    </ul>
-                                                </div>
-                                                <span class="glyphicon glyphicon-bell icon-due-time"></span>
-                                            </div>
-                                        </div>
-                                         <div class="addList1">
-                                            <h4 data-toggle="modal" data-target="#modalAddList" class="glyphicon glyphicon-plus"></h4> 
-                                            <span data-toggle="modal" data-target="#modalAddList" class="addNewList">Add List</span>
-                                        </div>
-                                        <div class="rim"></div>
-                                        <div class="collectionSmall">
-                                            <collection></collection>
-                                        </div>                                     
-                                     </div>                              
-                                </div>
-                            
-<!--
-                                <div class="btn-group" id="menu-toggle">
-                                    <button type="button" class="form-control btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                        Menu <span class="caret"></span>
-                                    </button>
-                                    <ul class="dropdown-menu dropdown-menu-right scrollable-menu" aria-labelledby="menu1" role="menu"> 
-                                        <li role="presentation">              
-                                            <a role="menuitem" tabindex="-1" href="#">
-                                                <label class="icon-name-primary-menu">Q</label> 
-                                                <label class="nameListTaskMenu">hongquangnguyen92@gmail.com</label>
-                                            </a>
-                                        </li>
-                                        <li role="presentation">              
-                                            <a role="menuitem" tabindex="-1" href="#">
-                                                <label class="glyphicon glyphicon-log-out"></label>
-                                                Sign out
-                                            </a>
-                                        </li>
-                                        <li role="presentation" class="divider"></li>
-                                        <li role="presentation">
-                                            <a role="menuitem" tabindex="-1" href="#" data-toggle="modal" data-target="#modalAddList">
-                                                <label class="glyphicon glyphicon-plus"></label>
-                                                Add list
-                                            </a>
-                                        </li>
-                                        <li role="presentation" class="divider"></li>
-                                        <li role="presentation" ng-repeat="itemS in moduleService.listTasks" ng-click="choose($index)">
-                                            <a role="menuitem" tabindex="-1" href="#">{{itemS.nameListTask}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
--->
-                                
-<!--
-                                <input class="search-input" type="text" placeholder="Search">
-                                <span id="searchIcon" class="glyphicon glyphicon-search"></span>
--->
+                                <button id="menu-toggle" class="glyphicon glyphicon-menu-hamburger" ng-click="toggle($root.listTasks[$root.valueIndex].contentTask[a.indexTask].taskId,'left')"></button>
                             </li>
                         </ul>
                     </div>           
@@ -181,18 +65,19 @@
                     <div>
                         <div>
                             <h3>
-                                {{listTasks[valueIndex].nameListTask}} 
-                                <span class="glyphicon glyphicon-pencil" data-toggle="modal" data-target="#modalEditList" ng-click="setInitNameTask()"></span>
+                                {{$root.listTasks[$root.valueIndex].nameListTask}} 
+                                <span class="glyphicon glyphicon-pencil editModal" ng-click="openEdit()"></span>
                             </h3>
                             
                             <form>
                                 <table>
                                     <tr class="fixInput">
                                         <td class="thingToDo">
-                                            <input type="text" class="form-control" placeholder="Add your task" ng-enter="addTask(valueIndex)" ng-model="a.itemNameTask">
+                                            <input type="text" class="form-control" placeholder="Add your task" ng-enter="addTask($root.valueIndex)" ng-model="a.itemNameTask">
                                         </td>
-                                        <td id="datepickerSetDate" class="input-group date sizeDate" data-date-format="dd-mm-yyyy">
-                                            <input type="text" class="form-control input-group-addon" placeholder="Set time" ng-model="a.itemDueDate">
+                                        <td class="input-group date sizeDate">
+                                            <input type="text" class="form-control input-group-addon" placeholder="Set time" ng-model="a.itemDueDate" datepicker>
+                                          
                                         </td>
                                     </tr>
                                 </table>                        
@@ -201,8 +86,8 @@
                     </div>
                     
                     <ul class="nav nav-pills">
-                      <li role="presentation" class="active" ng-click="inProgressTask()"><a href="#">TASKS TO-DO</a></li>
-                      <li role="presentation" ng-click="completedTask()"><a href="#">COMPLETED TASK</a></li>
+                      <li  ng-class="{'active': view_tab == 'tabInprogress'}" ng-click="inProgressTask('tabInprogress')"><a href="#/html/to_do_page">TASKS TO-DO</a></li>
+                      <li ng-class="{'active': view_tab == 'tabDone'}" ng-click="completedTask('tabDone')"><a href="#/html/to_do_page">COMPLETED TASK</a></li>
                     </ul>
                     
                     <!--   Directive listItem      -->
@@ -216,97 +101,91 @@
                     <!--                    -->
                   
                     <!--   Modal Add List Task     -->
-                    <div class="modal fade" id="modalAddList" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <!--  Form modal    -->
-                                <form id="addForm" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Add New List</h4>
-                                    </div>
-                                    <div class="modal-body">
-
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="list-name" placeholder="List Name" ng-model="itemName" name="list-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="member-name" class="control-label">List Member</label>
-                                                <span class="glyphicon glyphicon-user"></span>
-                                                <input type="text" class="form-control" id="member-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label icon-name">Q</label>
-                                                <label class="control-label full-name">Quang Nguyen</label>
-                                                <label class="control-label icon-owner">Owner</label>
-                                                <span class="control-span email-name">hongquangnguyen92@gmail.com</span>
-                                            </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" id="closemodal" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="savemodal" ng-click="addList()" disabled="disabled">Save</button>
-                                    </div>
-                                </form>
-                            </div>
+                    <script type="text/ng-template" id="myModalAdd.html">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add New List</h4>
                         </div>
-                    </div>
+                        <div class="modal-body">
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="list-name" placeholder="List Name" ng-model="itemName" name="list-name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-name" class="control-label">List Member</label>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <input type="text" class="form-control" id="member-name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label icon-name">{{$root.firstNameLetter}}</label>
+                                    <label class="control-label full-name">{{$root.fullName}}</label>
+                                    <label class="control-label icon-owner">Owner</label>
+                                    <span class="control-span email-name">{{$root.idUser}}</span>
+                                </div>
+<!--
+                                <div class="form-group newSharingUser">
+                                    <img class="control-label icon-user" src="../images/avatar_login.png">
+                                    <label class="control-label new-email-user">{{fullName}}</label>
+                                    <button class="btn removeSharingUser">Remove</button>
+                                </div>
+disabled="disabled"
+-->
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="closemodal" ng-click="cancel()">Close</button>
+                            <button type="button" class="btn btn-primary" id="savemodal" ng-click="addList()">Save</button>
+                        </div>
+                    </script>
                     <!--                    -->
                     
                     <!--   Modal Edit List Task     -->
-                    <div class="modal fade" id="modalEditList" tabindex="-1" role="dialog" data-keyboard="false" data-backdrop="static">
-                        <div class="modal-dialog" role="document">
-                            <div class="modal-content">
-                                <!--  Form modal    -->
-                                <form id="addForm" method="post">
-                                    <div class="modal-header">
-                                        <h4 class="modal-title">Add New List</h4>
-                                    </div>
-                                    <div class="modal-body">
-
-                                            <div class="form-group">
-                                                <input type="text" class="form-control" id="list-name-edit" placeholder="List Name" ng-model="editName" name="list-name-edit">
-                                            </div>
-                                            <div class="form-group">
-                                                <label for="member-name" class="control-label">List Member</label>
-                                                <span class="glyphicon glyphicon-user"></span>
-                                                <input type="text" class="form-control" id="member-name">
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label icon-name">Q</label>
-                                                <label class="control-label full-name">Quang Nguyen</label>
-                                                <label class="control-label icon-owner">Owner</label>
-                                                <span class="control-span email-name">hongquangnguyen92@gmail.com</span>
-                                            </div>
-
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" id="closeeditmodal" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary" id="saveeditmodal" ng-click="editList()">Done</button>
-                                    </div>
-                                </form>
-                            </div>
+                    <script type="text/ng-template" id="myModalEdit.html">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Add New List</h4>
                         </div>
-                    </div>
+                        <div class="modal-body">
+
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="list-name-edit" placeholder="List Name" ng-model="$root.editName" name="list-name-edit">
+                                </div>
+                                <div class="form-group">
+                                    <label for="member-name" class="control-label">List Member</label>
+                                    <span class="glyphicon glyphicon-user"></span>
+                                    <input type="text" class="form-control" id="member-name">
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label icon-name">{{$root.firstNameLetter}}</label>
+                                    <label class="control-label full-name">{{$root.fullName}}</label>
+                                    <label class="control-label icon-owner">Owner</label>
+                                    <span class="control-span email-name">{{$root.idUser}}</span>
+                                </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" id="closeeditmodal" ng-click="cancel()">Close</button>
+                            <button type="button" class="btn btn-primary" id="saveeditmodal" ng-click="editList()">Done</button>
+                        </div>
+                    </script>
                     <!--                    -->
                     
                 </div>
                 <div class="col-md-3 listTask" id="wrapper">
                     <label class="icon-name-primary">{{firstNameLetter}}</label>
-                    <label class="full-name-primary">Quang Nguyen</label>
+                    <label class="full-name-primary">{{fullName}}</label>
                     <div class="btn-group">
                         <span class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-menu-down icon-menu"></span>
                         </span>
                         <ul class="dropdown-menu-right dropdown-menu" role="menu">
-                            <li><a href="#">Sign out</a></li>
+                            <li><a ng-click="signOut()">Sign out</a></li>
                         </ul>
                     </div>
                     <span class="glyphicon glyphicon-bell icon-due-time"></span>
                     <span></span>
                     <div>
                         <div class="addList">
-                            <h4 data-toggle="modal" data-target="#modalAddList" class="glyphicon glyphicon-plus"></h4> 
-                            <span data-toggle="modal" data-target="#modalAddList" class="addNewList">Add List</span>
+                            <h4 ng-click="openAdd()" class="glyphicon glyphicon-plus"></h4> 
+                            <span ng-click="openAdd()" class="addNewList">Add List</span>
                         </div>
                     </div>
                     <div class="rim"></div>
@@ -320,23 +199,4 @@
                 </div>
             </div>
         </div>
-
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="../js/library/bootstrap.min.js"></script>
-        <script src="../js/common/common.js"></script>
-        <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-        <link href="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/css/datepicker.css" rel="stylesheet" type="text/css" />
-        <script src="http://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.js"></script>
-        <script src="../js/library/angular.min.js"></script>
-        <script src="http://code.angularjs.org/1.0.3/angular-resource.min.js"></script>
-        <script src="../js/library/angular-route.js"></script>
-        <script src="../js/library/angular-ui-router.js"></script>
-        <script src="../js/library/angular-pageslide-directive.js"></script>
-        <script src="../js/library/angular-animate.js"></script>
-        <script src="../js/app.js"></script>
-        <script src="../js/directives/listItem.js"></script>
-        <script src="../js/directives/collections.js"></script>
-        <script src="../js/directives/enterEvent.js"></script>
-        <script type="text/javascript" src="../js/library/bootstrap-datetimepicker.js" charset="UTF-8"></script>
-    </body>
-</html>
+      

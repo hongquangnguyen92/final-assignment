@@ -1,0 +1,148 @@
+{"collections" : [
+      {
+        "taskListId": 0,
+        "nameListTask": "Inbox",
+        "contentTask": [
+          {
+            "taskId": 0,
+            "nameTask": "Task 1",
+            "dueDay": "07-03-2016",
+            "reminder": "03-04-2016 15:41",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false
+          },
+          {
+            "taskId": 1,
+            "nameTask": "Task 2",
+            "dueDay": "09-03-2016",
+            "reminder": "03-03-2016 22:30",
+            "statusTask": "completed",
+            "remindActive": true,
+            "checkedTask": true
+          },
+          {
+            "taskId": 2,
+            "nameTask": "Task 3",
+            "dueDay": "05-03-2016",
+            "reminder": "12-12-2016 22:30",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false
+          }
+        ]
+      },
+      {
+        "taskListId": 1,
+        "nameListTask": "Today",
+        "contentTask": []
+      },        
+      {
+        "taskListId": 2,
+        "nameListTask": "Design web shop",
+        "contentTask": [
+          {
+            "taskId": 3,
+            "nameTask": "Make some pictures",
+            "dueDay": "07-03-2016",
+            "reminder": "",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "hongquangnguyen92@gmail.com"
+          },
+          {
+            "taskId": 4,
+            "nameTask": "Design layout",
+            "dueDay": "13-03-2016",
+            "reminder": "",
+            "statusTask": "completed",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "jerry@gmail.com"
+          },
+          {
+            "taskId": 7,
+            "nameTask": "Design database",
+            "dueDay": "13-03-2016",
+            "reminder": "",
+            "statusTask": "completed",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "hongquangnguyen92@gmail.com"
+          }
+        ]
+      },
+      {
+        "taskListId": 3,
+        "nameListTask": "Go shoping",
+        "contentTask": [
+          {
+            "taskId": 5,
+            "nameTask": "Buy some fish",
+            "dueDay": "11-03-2016",
+            "reminder": "",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "hongquangnguyen92@gmail.com"
+          },
+          {
+            "taskId": 6,
+            "nameTask": "Buy some vegetable",
+            "dueDay": "11-03-2016",
+            "reminder": "",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "jerry@gmail.com"
+          },
+          {
+            "taskId": 8,
+            "nameTask": "Buy some meats",
+            "dueDay": "11-03-2016",
+            "reminder": "",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "tomrider@gmail.com"
+          }
+        ]
+      },
+      {
+        "taskListId": 4,
+        "nameListTask": "Meeting",
+        "contentTask": [
+          {
+            "taskId": 9,
+            "nameTask": "Get conversation on tuesday",
+            "dueDay": "7-03-2016",
+            "reminder": "",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "jerry"
+          },
+          {
+            "taskId": 10,
+            "nameTask": "Get discussing on Monday",
+            "dueDay": "13-03-2016",
+            "reminder": "",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "jerry@gmail.com"
+          },
+          {
+            "taskId": 11,
+            "nameTask": "Join presentation on friday",
+            "dueDay": "11-03-2016",
+            "reminder": "",
+            "statusTask": "inprogress",
+            "remindActive": true,
+            "checkedTask": false,
+            "assignTo": "hongquangnguyen92@gmail.com"
+          }
+        ]
+      }
+]}

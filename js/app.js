@@ -1,177 +1,128 @@
-var app = angular.module('tasks', ["pageslide-directive", "jsonService", "ngAnimate"]);
+var app = angular.module('tasks', ["pageslide-directive", "jsonService", "ui.router", "ngAnimate", "ui.bootstrap"]);
 
 angular.module('jsonService', ['ngResource'])
 .factory('ItemService', function($resource) { 
-    return $resource('../js/listTasks.json',{ }, {
+    return $resource('js/json/listTasks.json',{ }, {
         getData: {method:'GET', isArray: false}
     });  
 })
 .factory('LoginService', function($resource) {
-    return $resource('../js/users.json',{ }, {
+    return $resource('js/json/users.json',{ }, {
         getData: {method:'GET', isArray: false}
     });
 });
 
-//app.config(function($stateProvider, $urlRouterProvider) {
-//
-//  // For any unmatched url, send to /index
-//  $urlRouterProvider.otherwise("html/login");
-//
-//  $stateProvider
-//    .state('html/login', {
-//      url: "/html/login",
-//      templateUrl: "html/login.html",
-//      controller: "TasksController"
-//    })
-//    .state('html/to_do_page', {
-//      url: "/html/to_do_page",
-//      templateUrl: "html/to_do_page.html",
-//      //controller: "LoginCheckController"
-//    });
-//});
+app.config(function($stateProvider, $urlRouterProvider) {
 
-//app.controller('LoginCheckController', ['$scope', '$location', LoginCheckController]);
-//
-//function LoginCheckController($scope, $location) {
-//
-//  $scope.users = [{
-//    UserName: 'chandra@go',
-//    Password: 'hello'
-//  }, {
-//    UserName: 'Harish',
-//    Password: 'hi'
-//  }, {
-//    UserName: 'Chinthu',
-//    Password: 'hi'
-//  }];
-//
-//  $scope.loginCheck = function() {
-//      console.log("hello");
-//    $location.path("SuccessPage");
-//  };
+  // For any unmatched url, send to /index
+  $urlRouterProvider.otherwise("html/login");
 
-//  $scope.go = function(path) {
-//    $location.path("/SuccessPage");
-//  };
+  $stateProvider
+    .state('html/login', {
+      url: "/html/login",
+      templateUrl: "html/login.html",
+      controller: "LoginController"
+    })
+    .state('html/to_do_page', {
+      url: "/html/to_do_page",
+      templateUrl: "html/to_do_page.html",
+      controller: "TasksController"
+    });
+});
 
-//.factory("EveryService", ["ItemService", "LoginService", 
-//    function(itemService, loginService) {
-//        return {
-//            'itemService': itemService, 
-//            'loginService': loginService
-//        };
-//}]);
+app.directive("datepicker", function () {
+    return {
+        restrict: "A",
+        link: function (scope, el, attr) {
+            el.datepicker({
+                dateFormat: 'dd-mm-yy'
+            });
+        }
+    };
+});
 
-//    this.addTodayTask = function(){
-//        var today = new Date();
-//        var dd = today.getDate();
-//        var mm = today.getMonth()+1; //January is 0!
-//
-//        var yyyy = today.getFullYear();
-//        if(dd<10){
-//            dd='0'+dd
-//        } 
-//        if(mm<10){
-//            mm='0'+mm
-//        } 
-//        var todayDue = dd+'-'+mm+'-'+yyyy;
-//        for(var i=0; i<this.listTasks.length; i++)
-//        {
-//            if(i!=1)
-//            {
-//                for(var j=0; j<this.listTasks[i].contentTask.length; j++)
-//                {
-//                    var todayDueDate = this.listTasks[i].contentTask[j].dueDay;
-//                    if(todayDue==todayDueDate)
-//                    {
-//                        
-////                        if(this.listTasks[1].contentTask.length==0)
-////                            this.listTasks[1].contentTask.push( this.listTasks[i].contentTask[j]);
-////                        else{
-////                            for(var z=0; z<this.listTasks[1].contentTask.length; z++)
-////                            {
-////                                console.log(this.listTasks[i].contentTask[j].taskId);
-////                                if(this.listTasks[1].contentTask[z].taskId == this.listTasks[i].contentTask[j].taskId){
-////                                   break;
-////                                   }
-////                                else if(this.listTasks[1].contentTask[z].taskId != this.listTasks[i].contentTask[j].taskId)
-////                                {
-////                                    console.log("hello");
-////                                    this.listTasks[1].contentTask.push( this.listTasks[i].contentTask[j]);  
-////                                    break;
-////                                }
-////                            }
-////                        }
-//                        this.listTasks[1].contentTask.push( this.listTasks[i].contentTask[j]);
-//                    }
-//                }
-//            }
-//        }
-//        if(this.listTasks[1].contentTask.length>=2)
-//            for(var i=0; i<this.listTasks[1].contentTask.length-1; i++)
-//            {
-//                 console.log("hello");
-//                for(var j=i+1; j<this.listTasks[1].contentTask.length; j++){
-//                     console.log("hi");
-//                    if(this.listTasks[1].contentTask[i].taskId == this.listTasks[1].contentTask[j].taskId){
-//                        this.listTasks[1].contentTask.pop(this.listTasks[1].contentTask[j]);
-//                        i--; j--;
-//                        break;
-//                    }
-//                }
-//            }
-//    }
-//    
-//    this.totalTasks = function(){
-//        var count = 0;
-//        for(var i=0; i<this.listTasks.length; i++)
-//        {
-//            
-//                for(var j=0; j<this.listTasks[i].contentTask.length; j++)
-//                {
-//                    count++;
-//                }
-//            
-//        }
-//        return count;
-//    }
-//    
-//});
-
-app.controller('TasksController', function($scope, $rootScope, $window, $location, ItemService, LoginService){
+app.controller('TasksController', function($scope, $rootScope, $window, $location, ItemService, LoginService, $uibModal){
     ItemService.get(function(data){
-        $scope.listTasks = data.collections;
+        $rootScope.listTasks = data.collections;
     });
-    LoginService.get(function(data){
-            $scope.listUsers = data.listTask;
-    });
-    $scope.firstNameLetter = "P";
-    $scope.loginCheck = function() {
-      console.log("hello");
-        $location.path("html/to_do_page");
-//        scope.$apply(function() { 
-//            $location.path("/to_do_page.html"); 
-//        });
-  };
+//    LoginService.get(function(data){
+//            $rootScope.listUsers = data.listTask;
+//            $scope.lengthListUser = $scope.listUsers.length;
+//    });
 //    $scope.loginCheck = function(){
 //        // check id and password
-//        for(var i =0; i<$scope.listUsers.length; i++)
-//            if($scope.listUsers[i].userId == $scope.userId && $scope.listUsers[i].passWord == $scope.userPass)
+//       
+//        for(var i =0; i<$rootScope.listUsers.length; i++)
+//            if($rootScope.listUsers[i].userId == $scope.userId && $rootScope.listUsers[i].passWord == $scope.userPass)
 //            {
+//                
 //                $scope.currentUserName = $scope.listUsers[i].userName;
 //                $scope.currentUserId = $scope.listUsers[i].userId;
+//                //var user = [$scope.currentUserId, $scope.currentUserName];
 //                $scope.firstNameLetter = $scope.currentUserName.substring(0,1);
-//                var baseUrl = "file:///C:/Users/Win7x86/Desktop/Final_Assignment/html"+$location.path();
-//                $location.path("to_do_page.html");
-//                //$location.absUrl('file:///C:/Users/Win7x86/Desktop/Final_Assignment/html/to_do_page.html');
-//                //$window.location.href = 'file:///C:/Users/Win7x86/Desktop/Final_Assignment/html/to_do_page.html';
-//                 //window.location.assign('file:///C:/Users/Win7x86/Desktop/Final_Assignment/html/to_do_page.html');
+//                localStorage.setItem("idUser", $scope.currentUserId);
+//                $location.path("html/to_do_page");
 //            }
-//        
-//         console.log($scope.firstNameLetter);
-//        console.log($location.path());
-//        console.log(baseUrl);
 //    };
+//    $scope.loginCheck = function(){
+//        $location.path("html/to_do_page");
+//    }
+//    
+    LoginService.get(function(data){
+        $rootScope.idUser = localStorage.getItem('idUser');
+        if($rootScope.idUser!=null){
+            $rootScope.listUsers = data.listTask;
+            $scope.lengthListUser = $scope.listUsers.length;
+            for(var i =0; i<$scope.lengthListUser; i++)
+            {
+                if($rootScope.idUser == $rootScope.listUsers[i].userId )
+                    $rootScope.userCurrent = $scope.listUsers[i];
+            }
+        console.log($rootScope.userCurrent);
+        $rootScope.firstNameLetter = $rootScope.userCurrent.userName.substring(0,1);
+        $rootScope.fullName = $rootScope.userCurrent.userName;
+        }
+    });
+//    
+//    $scope.loginCheck = function() {
+//      console.log("hello");
+//        $location.path("html/to_do_page");
+//
+//    };
+    
+    $scope.items = ['item1', 'item2', 'item3'];
+
+    $scope.animationsEnabled = true;
+
+    $scope.openAdd = function (size) {
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalAdd.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+            items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+    };
+    
+    $scope.openEdit = function (size) {
+        $rootScope.editName = $rootScope.listTasks[$rootScope.valueIndex].nameListTask;
+        var modalInstance = $uibModal.open({
+            animation: $scope.animationsEnabled,
+            templateUrl: 'myModalEdit.html',
+            controller: 'ModalInstanceCtrl',
+            size: size,
+            resolve: {
+            items: function () {
+                    return $scope.items;
+                }
+            }
+        });
+    };
+
 
     $scope.a = {};
     $scope.a.itemNameTask = "";
@@ -181,9 +132,8 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
     $scope.a.reminderTime = "";
     $scope.a.itemStatusTask = "inprogress";
     $scope.a.indexTask = "";
-    $scope.valueIndex = 0;
-    
-    console.log($scope.firstNameLetter);
+    $rootScope.valueIndex = 0;
+    $scope.view_tab = "tabInprogress";
     
     var today = new Date();
     var dd = today.getDate();
@@ -197,67 +147,44 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
         mm='0'+mm
     } 
     var todayDue = dd+'-'+mm+'-'+yyyy;
-//    $scope.numberReminder = 0;
-//    $scope.tod = false;
+    $rootScope.dueToday = todayDue;
     $scope.numberTasks = 0;
     
-    // Add an item to the list
-    $scope.addList = function() {
-        if($scope.itemName!=null && $scope.itemName!=""){
-            var jsonStr = $scope.listTasks;
-            var new_obj = {"nameListTask":$scope.itemName, "taskListId":$scope.listTasks.length+1, "contentTask" : []};
-            jsonStr.push( new_obj );
-        }
-        
-        // Clear input fields after push
-        $scope.itemName = null;
-        // Set value id to choose task list
-        $scope.valueIndex = $scope.listTasks.length-1;
-    };
-    
-    // Edit an item to the list
-    $scope.editList = function() {
-        if($scope.editName!=null && $scope.editName!=""){
-            $scope.listTasks[$scope.valueIndex].nameListTask = $scope.editName;
-        }
-    }
-    
-    // Set init name task for modal 
-    $scope.setInitNameTask = function(){
-        $scope.editName = $scope.listTasks[$scope.valueIndex].nameListTask;
-    }
+//    $scope.tempUsers = [
+//        
+//    ];
     
     // Choose task list
     $scope.choose = function(indexCurrent){
         var x = indexCurrent;
-        $scope.valueIndex = x;
+        $rootScope.valueIndex = x;
         $rootScope.checkedright = false;
         $rootScope.checkedleft = false;
         
         if(x==1){
-            for(var i=0; i<this.listTasks.length; i++)
+            for(var i=0; i<$rootScope.listTasks.length; i++)
             {
                 if(i!=1)
                 {
-                    for(var j=0; j<$scope.listTasks[i].contentTask.length; j++)
+                    for(var j=0; j<$rootScope.listTasks[i].contentTask.length; j++)
                     {
-                        var todayDueDate = $scope.listTasks[i].contentTask[j].dueDay;
+                        var todayDueDate = $rootScope.listTasks[i].contentTask[j].dueDay;
                         if(todayDue==todayDueDate)
                         {
 
-                            if($scope.listTasks[1].contentTask.length==0)
-                                $scope.listTasks[1].contentTask.push( $scope.listTasks[i].contentTask[j]);
+                            if($rootScope.listTasks[1].contentTask.length==0)
+                                $rootScope.listTasks[1].contentTask.push( $rootScope.listTasks[i].contentTask[j]);
                             else{
-                                for(var z=0; z<$scope.listTasks[1].contentTask.length; z++)
+                                for(var z=0; z<$rootScope.listTasks[1].contentTask.length; z++)
                                 {
-                                    console.log($scope.listTasks[i].contentTask[j].taskId);
-                                    if($scope.listTasks[1].contentTask[z].taskId == $scope.listTasks[i].contentTask[j].taskId){
+                                    console.log($rootScope.listTasks[i].contentTask[j].taskId);
+                                    if($rootScope.listTasks[1].contentTask[z].taskId == $rootScope.listTasks[i].contentTask[j].taskId){
                                        break;
                                        }
-                                    else if($scope.listTasks[1].contentTask[z].taskId != $scope.listTasks[i].contentTask[j].taskId && ($scope.listTasks[1].contentTask.length-1) == z)
+                                    else if($rootScope.listTasks[1].contentTask[z].taskId != $rootScope.listTasks[i].contentTask[j].taskId && ($rootScope.listTasks[1].contentTask.length-1) == z)
                                     {
                                         console.log("hello");
-                                        $scope.listTasks[1].contentTask.push( this.listTasks[i].contentTask[j]);  
+                                        $rootScope.listTasks[1].contentTask.push( $rootScope.listTasks[i].contentTask[j]);  
                                         break;
                                     }
                                 }
@@ -267,24 +194,25 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
                 }
             }
         }
-        if($scope.listTasks[1].contentTask.length > 0){
-            for(var z=0; z<$scope.listTasks[1].contentTask.length; z++)
+        if($rootScope.listTasks[1].contentTask.length > 0){
+            for(var z=0; z<$rootScope.listTasks[1].contentTask.length; z++)
             {
-                var dueDate = $scope.listTasks[1].contentTask[z].dueDay;
+                var dueDate = $rootScope.listTasks[1].contentTask[z].dueDay;
                 if(todayDue!=dueDate)
-                    $scope.listTasks[1].contentTask.pop($scope.listTasks[1].contentTask[z]);
+                    $rootScope.listTasks[1].contentTask.pop($rootScope.listTasks[1].contentTask[z]);
             }
         }
     };
     
+    // Add new task to list
     $scope.addTask = function(indexCurrent) {
-        for(var i=0; i<$scope.listTasks.length; i++){
-            for(var j=0; j<$scope.listTasks[i].contentTask.length; j++){
+        for(var i=0; i<$rootScope.listTasks.length; i++){
+            for(var j=0; j<$rootScope.listTasks[i].contentTask.length; j++){
                 $scope.numberTasks = $scope.numberTasks +1;
             }
         }
         console.log($scope.numberTasks);
-        var jsonStr = $scope.listTasks[indexCurrent].contentTask;
+        var jsonStr = $rootScope.listTasks[indexCurrent].contentTask;
             //console.log(abc);
         var new_obj = {
             "nameTask": $scope.a.itemNameTask,
@@ -293,6 +221,7 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
             "taskId": $scope.numberTasks,
             "checkedTask": false
         };
+        $scope.numberTasks = 0;
         jsonStr.push( new_obj );
         
         // Clear input fields after push
@@ -303,22 +232,12 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
     // Rename task
     $scope.renameTask = function(indexCurrent){
         if($scope.a.itemRenameTask!=null && $scope.a.itemRenameTask!=""){
-            $scope.listTasks[$scope.valueIndex].contentTask[indexCurrent].nameTask = $scope.a.itemRenameTask;
+            $rootScope.listTasks[$rootScope.valueIndex].contentTask[indexCurrent].nameTask = $scope.a.itemRenameTask;
         }
         
         // Clear input fields after push
         $scope.a.itemRenameTask = "";
     }
-    
-//    // Update due date
-//    $scope.updateTimeTask = function(indexCurrent){
-//        $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].dueDay = $scope.a.itemUpdateDueDate;
-//    }
-    
-//    // Set reminder
-//    $scope.remindTimeTask = function(indexCurrent){
-//        $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].reminder = $scope.a.reminderTime;
-//    }
     
     // Show pencil when hover in
     $scope.hoverIn = function(){
@@ -332,92 +251,72 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
     }
     
     // Show tasks in progress
-    $scope.inProgressTask = function(){
+    $scope.inProgressTask = function(tab){
         $scope.a.itemStatusTask = "inprogress";     
         $scope.delete = "nonDeleteTask";
-        $scope.checked1 = false;        
+        $scope.checked1 = false;      
+        $scope.view_tab = tab;
     }
     
     // Show completed tasks
-    $scope.completedTask = function(){
+    $scope.completedTask = function(tab){
         $scope.a.itemStatusTask = "completed";     
         $scope.delete = "deleteTask";
         $scope.checked1 = true; 
+        $scope.view_tab = tab;
     }
     
     // Change status task
-//    $scope.changeStatusTask = function(indexCurrent){
-//        if($scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask=="inprogress"){
-//            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask = "completed";
-//            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].checkedTask = true;
-//        }
-//        else{
-//            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].statusTask = "inprogress";
-//            $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].checkedTask = false;
-//        }
-//    }
     $scope.changeStatusTask = function(indexCurrent){
-        for(var i=0; i<$scope.listTasks[$scope.valueIndex].contentTask.length; i++){
-            if($scope.listTasks[$scope.valueIndex].contentTask[i].taskId==indexCurrent){
-                if($scope.listTasks[$scope.valueIndex].contentTask[i].statusTask=="inprogress")
+        for(var i=0; i<$rootScope.listTasks[$rootScope.valueIndex].contentTask.length; i++){
+            if($rootScope.listTasks[$rootScope.valueIndex].contentTask[i].taskId==indexCurrent){
+                if($rootScope.listTasks[$rootScope.valueIndex].contentTask[i].statusTask=="inprogress")
                 {
-                    $scope.listTasks[$scope.valueIndex].contentTask[i].statusTask = "completed";
-                    $scope.listTasks[$scope.valueIndex].contentTask[i].checkedTask = true;
+                    $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].statusTask = "completed";
+                    $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].checkedTask = true;
                 }
                 else
                 {
-                    $scope.listTasks[$scope.valueIndex].contentTask[i].statusTask = "inprogress";
-                    $scope.listTasks[$scope.valueIndex].contentTask[i].checkedTask = false;
+                    $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].statusTask = "inprogress";
+                    $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].checkedTask = false;
                 }
             }
         }
     }
-    
-    //
-//    var total = 0;
-//    var todaySS = new Date();
-//    for(var i=0; i<ItemService.listTasks.length; i++)
-//    {
-//        for(var j=0; j<ItemService.listTasks[i].contentTask.length; j++)
-//        {
-//            var timeSS = new Date(ItemService.listTasks[i].contentTask[j].reminder);
-//            if(timeSS<=todaySS && ItemService.listTasks[i].contentTask[j].remindActive == true){
-//                $scope.numberReminder = $scope.numberReminder+1;
-//                console.log(true);
-//            }
-//        }
-//    }
+    //console.log(localStorage.getItem("listT"));
+    $scope.pass = localStorage.getItem("listT");
+    //console.log($scope.pass);
+    console.log($scope.pass.contentTask);
+    // Sign out
+    $scope.signOut = function(){
+        //console.log($rootScope.listTasks);
+        localStorage.setItem("listT", JSON.stringify($rootScope.listTasks));
+        $location.path("html/login");
+    }
+
 });  
 
-app.controller('pageslideCtrl',['$scope', '$rootScope',function($scope, $rootScope){
+app.controller('pageslideCtrl',function($scope, $rootScope, $location){
 //    $scope.checkedright = false; // This will be binded using the ps-open attribute
 //    $scope.checkedleft = false;
     
-    // Show or close pageslide task
-//    $scope.toggle = function(indexCurrent, position){
-//        if(($scope.a.indexTask==indexCurrent || ($scope.a.indexTask!=indexCurrent && $scope.checkedright==false)) && position=="right"){
-//            $scope.checkedright = !$scope.checkedright;
-//            $scope.checkedleft = false;
-//        }
-//        if( position=="left"){
-//            $scope.checkedleft = !$scope.checkedleft;
-//            $scope.checkedright = false;
-//        }
-//        $scope.a.indexTask = indexCurrent;
-//        $scope.a.itemUpdateDueDate = $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].dueDay;
-//        $scope.a.reminderTime = $scope.moduleService.listTasks[$scope.valueIndex].contentTask[indexCurrent].reminder;
-//    }
+    $scope.outToClose = function(){
+        $rootScope.checkedleft = false;
+        $rootScope.checkedright = false;
+        $location.path("html/login");
+    }
+    
     $scope.toggle = function(indexCurrent, position){
-        for(var i=0; i<$scope.listTasks[$scope.valueIndex].contentTask.length; i++){
-            if($scope.listTasks[$scope.valueIndex].contentTask[i].taskId==indexCurrent){
+        for(var i=0; i<$rootScope.listTasks[$rootScope.valueIndex].contentTask.length; i++){
+            if($rootScope.listTasks[$rootScope.valueIndex].contentTask[i].taskId==indexCurrent){
                 if(($scope.a.indexTask==i || ($scope.a.indexTask!=i && $scope.checkedright==false)) && position=="right"){
                     $rootScope.checkedright = !$rootScope.checkedright;
                     $rootScope.checkedleft = false;
                 }
                 
                 $scope.a.indexTask = i;
-                $scope.a.itemUpdateDueDate = $scope.listTasks[$scope.valueIndex].contentTask[i].dueDay;
-                $scope.a.reminderTime = $scope.listTasks[$scope.valueIndex].contentTask[i].reminder;
+                $scope.a.itemUpdateDueDate = $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].dueDay;
+                $scope.a.reminderTime = $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].reminder;
             }
         }
         if( position=="left"){
@@ -429,11 +328,11 @@ app.controller('pageslideCtrl',['$scope', '$rootScope',function($scope, $rootSco
     }
     
     $scope.changeStatusTaskPageSlide = function(indexCurrent){
-        for(var i=0; i<$scope.listTasks[$scope.valueIndex].contentTask.length; i++){
-            if($scope.listTasks[$scope.valueIndex].contentTask[i].taskId==indexCurrent){
-                if($scope.listTasks[$scope.valueIndex].contentTask[i].statusTask=="inprogress"){
-                    $scope.listTasks[$scope.valueIndex].contentTask[i].statusTask = "completed";
-                    $scope.listTasks[$scope.valueIndex].contentTask[i].checkedTask = true;
+        for(var i=0; i<$rootScope.listTasks[$rootScope.valueIndex].contentTask.length; i++){
+            if($rootScope.listTasks[$rootScope.valueIndex].contentTask[i].taskId==indexCurrent){
+                if($rootScope.listTasks[$rootScope.valueIndex].contentTask[i].statusTask=="inprogress"){
+                    $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].statusTask = "completed";
+                    $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].checkedTask = true;
                 }
                 $rootScope.checkedright = false;
             }
@@ -441,26 +340,89 @@ app.controller('pageslideCtrl',['$scope', '$rootScope',function($scope, $rootSco
     }
     
     $scope.saveInfoTask = function(indexCurrent){
-        for(var i=0; i<$scope.listTasks[$scope.valueIndex].contentTask.length; i++){
-            if($scope.listTasks[$scope.valueIndex].contentTask[i].taskId==indexCurrent){
+        for(var i=0; i<$rootScope.listTasks[$rootScope.valueIndex].contentTask.length; i++){
+            if($rootScope.listTasks[$rootScope.valueIndex].contentTask[i].taskId==indexCurrent){
                 if($scope.a.itemRenameTask!=null && $scope.a.itemRenameTask!="")
-                    $scope.listTasks[$scope.valueIndex].contentTask[i].nameTask = $scope.a.itemRenameTask;
-                $scope.listTasks[$scope.valueIndex].contentTask[i].dueDay = $scope.a.itemUpdateDueDate;
-                $scope.listTasks[$scope.valueIndex].contentTask[i].reminder = $scope.a.reminderTime;
+                    $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].nameTask = $scope.a.itemRenameTask;
+                $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].dueDay = $scope.a.itemUpdateDueDate;
+                $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].reminder = $scope.a.reminderTime;
             }
         }
         $scope.a.itemRenameTask = "";
         $rootScope.checkedright = false;
         $rootScope.checkedleft = false;
-        if($scope.listTasks[1].contentTask.length > 0){
-            for(var z=0; z<$scope.listTasks[1].contentTask.length; z++)
+        if($rootScope.listTasks[1].contentTask.length > 0){
+            for(var z=0; z<$rootScope.listTasks[1].contentTask.length; z++)
             {
-                var dueDate = $scope.listTasks[1].contentTask[z].dueDay;
-                if(todayDue!=dueDate)
-                    $scope.listTasks[1].contentTask.pop($scope.listTasks[1].contentTask[z]);
+                var dueDate = $rootScope.listTasks[1].contentTask[z].dueDay;
+                if($rootScope.dueToday!=dueDate)
+                    $rootScope.listTasks[1].contentTask.pop($rootScope.listTasks[1].contentTask[z]);
             }
         }
     }
     
-}]);
+});
 
+app.controller('ModalInstanceCtrl', function ($scope, $rootScope, $uibModalInstance, items) {
+
+   
+    // Add an item to the list
+    $scope.addList = function() {
+        if($scope.itemName!=null && $scope.itemName!=""){
+            var jsonStr = $rootScope.listTasks;
+            var new_obj = {"nameListTask":$scope.itemName, "taskListId":$rootScope.listTasks.length+1, "contentTask" : []};
+            jsonStr.push( new_obj );
+            JSON.stringify(new_obj);
+        }
+        
+        // Clear input fields after push
+        $scope.itemName = null;
+        // Set value id to choose task list
+        $rootScope.valueIndex = $rootScope.listTasks.length-1;
+        $uibModalInstance.close($scope.selected.item);
+        
+    };
+    
+    // Edit an item to the list
+    $scope.editList = function() {
+        if($rootScope.editName!=null && $rootScope.editName!=""){
+            $rootScope.listTasks[$rootScope.valueIndex].nameListTask = $rootScope.editName;
+        }
+        $uibModalInstance.close($scope.selected.item);
+    }
+    
+  $scope.items = items;
+  $scope.selected = {
+    item: $scope.items[0]
+  };
+
+  $scope.ok = function () {
+    $uibModalInstance.close($scope.selected.item);
+  };
+
+  $scope.cancel = function () {
+    $uibModalInstance.dismiss('cancel');
+  };
+});
+
+app.controller('LoginController', function($scope, $rootScope, $window, LoginService, $location){
+
+//    LoginService.get(function(data){
+//            $rootScope.listUsers = data.listTask;
+//            $scope.lengthListUser = $rootScope.listUsers.length;
+//    });
+    $scope.loginCheck = function(){
+        // check id and password
+        for(var i =0; i<$rootScope.listUsers.length; i++)
+            if($rootScope.listUsers[i].userId == $scope.userId && $rootScope.listUsers[i].passWord == $scope.userPass)
+            {
+                
+                $scope.currentUserName = $rootScope.listUsers[i].userName;
+                $scope.currentUserId = $rootScope.listUsers[i].userId;
+                //var user = [$scope.currentUserId, $scope.currentUserName];
+                $scope.firstNameLetter = $scope.currentUserName.substring(0,1);
+                localStorage.setItem("idUser", $scope.currentUserId);
+                $location.path("html/to_do_page");
+            }
+    };
+}); 

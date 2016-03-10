@@ -108,6 +108,12 @@ h3 span{
     font-size: 20px;
     float: left;
 }
+.icon-user{
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    float: left;
+}
 .nameSidePage1 .icon-name-primary{
     background-color: forestgreen;
 }
@@ -116,7 +122,12 @@ h3 span{
     margin-left: 20px
 }
 .collectionSmall h4{
-    padding-left: 20px
+    padding-left: 20px;
+}
+.collectionSmall{
+    overflow-y : auto;
+    overflow-x: hidden;
+    height: 300px;
 }
 .nameSidePage1{
     padding: 13px 0px 0px 17px;
@@ -125,6 +136,19 @@ h3 span{
     font-size: 17px;
     margin-left: 10px;
     
+}
+.new-email-user{
+    font-size: 17px;
+    margin-left: 10px;
+    padding-top: 10px;
+}
+.newSharingUser{
+    margin-top: 25px;
+}
+.removeSharingUser{
+    float:right;
+    margin-top: 5px;
+    height: 35px;
 }
 .icon-owner{
     border-radius: 30%;
@@ -151,11 +175,17 @@ h3 span{
     cursor: pointer;
     font-weight: 100;
 }
-.icon-menu, .icon-due-time, .icon-pencil{
+.icon-menu, .icon-due-time, .icon-pencil, .editModal, .icon-due-time1{
     cursor: pointer;
 }
+.icon-due-time1{
+    float: right;
+    margin-right: 20px;
+    margin-top: 5px;
+}
 .icon-due-time{
-    margin-left: 70px
+    float:right;
+    margin-top: 6px;
 }
 .addList{
     margin-top: 15px;
@@ -257,14 +287,14 @@ h4{
     float: left;
     font-size: 20px;
     clear: both;
-    width: 140px;
+    width: 150px;
     text-align: center;
     cursor: pointer;
 }
 .saveButton{
-    width: 170px;
+    width: 180px;
     margin-top: -13px;
-    margin-left: 121px;
+    margin-left: 130px;
     padding: 15px 0px 0px 40px;
     text-align: center;
     cursor: pointer;
@@ -300,6 +330,7 @@ h4{
 .chooseTask{
     cursor: pointer;
     height: 35px;
+    font-weight: bolder;
 }
 .chooseTask:hover{
     background-color: darkseagreen;
@@ -322,16 +353,19 @@ h4{
         width: 75%
     }
 }
+/*
+@media (max-width: 1024px){
+    
+}
+*/
 @media (max-width: 990px){
     .listTask{
         display: none;
     }
     #menu-toggle{
-/*
         display: block;
         height: 25px;
         margin-top: 10px;
-*/
         height: 25px;
         margin-top: 10px;
         display: block;
@@ -389,6 +423,16 @@ h4{
   -moz-transition: all 0.5s ease;
   -o-transition: all 0.5s ease;
   transition: all 0.5s ease;
+    background: url(../images/background_wrapper.jpg) no-repeat;
+    background-size: cover;
+}
+#pageslide{
+    background: url(../images/background_pageslider.jpg) no-repeat;
+    background-size: cover;
+}
+.hidePageSlider{
+    width: 0px;
+    display: none
 }
 
 .addNewList:hover{
@@ -435,18 +479,42 @@ span.button span{
 }
 
 body{
-    background: url(../images/background_body.jpg) no-repeat;
+    background: url(../images/background_main.jpg) no-repeat;
     background-size: cover;
     height: 100%;
-/*
-    position: absolute;
-  transition: all 0.5s ease;
-*/
 }
+@media (max-height: 700px) and (min-width:323px){
+    .leftSide, .listTask{
+        height: 550px;
+    }
+}
+@media (max-height: 780px) and (max-width:436px){
+    .leftSide, .listTask{
+        height: 730px;
+    }
+}
+@media (min-height: 1023px) and (max-width: 1025px){
+    .leftSide, .listTask{
+        height: 950px;
+    }
+}
+@media (min-height: 750px) and (min-width: 1023px){
+    .leftSide, .listTask{
+        height: 650px;
+    }
+}
+@media (max-height: 650px) and (min-width: 1023px){
+    body{
+        height: 750px;
+    }
+}
+/*
+@media (min-height: 580px) and (max-width: 980px){
+    .leftSide, .listTask{
+        height: 850px;
+    }
+}
+*/
 html{
     height: 100%;
-/*
-    
-    overflow-x: hidden;
-*/
 }

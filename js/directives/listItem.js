@@ -3,14 +3,21 @@ app.directive("listitem", function() {
     restrict: 'E',
     template: 
         '<div ng-controller="pageslideCtrl">'+  
-            '<div class="task form-control" ng-repeat="i in listTasks[valueIndex].contentTask | filter:{statusTask:'+"a.itemStatusTask"+'}" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()">'+
+            '<div class="task form-control" ng-repeat="i in listTasks[valueIndex].contentTask | filter:{statusTask:'+"a.itemStatusTask"+'}" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-if="valueIndex!=1">'+
+                '<input type="checkbox" ng-click="changeStatusTask(i.taskId)" ng-checked="checked1">'+
+                '<span class="checkTask" ng-class="delete">{{i.nameTask}}</span>'+             
+                '<span class="icon-pencil glyphicon glyphicon-pencil" ng-show="hoverEdit" ng-click="toggle(i.taskId,'+"'right'"+')"></span>'+
+                '<span class="dueDate">{{i.dueDay}}</span>'+
+            '</div>'+
+      
+            '<div class="task form-control" ng-repeat="i in listTasks[1].contentTask | filter:{statusTask:'+"a.itemStatusTask"+', dueDay:'+"$root.dueToday"+'}" ng-mouseover="hoverIn()" ng-mouseleave="hoverOut()" ng-if="valueIndex==1">'+
                 '<input type="checkbox" ng-click="changeStatusTask(i.taskId)" ng-checked="checked1">'+
                 '<span class="checkTask" ng-class="delete">{{i.nameTask}}</span>'+             
                 '<span class="icon-pencil glyphicon glyphicon-pencil" ng-show="hoverEdit" ng-click="toggle(i.taskId,'+"'right'"+')"></span>'+
                 '<span class="dueDate">{{i.dueDay}}</span>'+
             '</div>'+
    
-            '<div pageslide ps-open="$root.checkedright" ps-side="right" id="pageslide" ps-key-listener="true">'+
+            '<div pageslide ps-open="$root.checkedright" ps-side="right" id="pageslide" ps-key-listener="true" ps-size="320px">'+
                 '<div class="sidePage">'+
                     '<span ng-click="toggle(listTasks[valueIndex].contentTask[a.indexTask].taskId,'+"'right'"+')" class="closePageSlider">'+
                             '<span class="glyphicon glyphicon-remove"></span>'+
@@ -28,13 +35,13 @@ app.directive("listitem", function() {
                     '<div class="timeSidePage">'+
                         '<div class="leftIconSidePage"><span class="form-control glyphicon glyphicon-calendar"></span></div>'+
                         '<div class="contentSidePage">'+
-                            '<input class="form-control" id="datepickerUpdate" data-date-format="dd-mm-yyyy" type="text" placeholder="Set due date" ng-model="a.itemUpdateDueDate">'+
+                            '<input class="form-control" id="datepickerUpdate" datepicker type="text" placeholder="Set due date" ng-model="a.itemUpdateDueDate">'+
                         '</div>'+
                     '</div>'+
                     '<div class="remindSidePage">'+
                         '<div class="leftIconSidePage"><span class="form-control glyphicon glyphicon-time"></span></div>'+
                         '<div class="contentSidePage">'+
-                            '<input class="form-control form_datetime" type="text" placeholder="Remind me" ng-model="a.reminderTime">'+
+                            '<input class="form-control form_datetime" type="text" datepicker placeholder="Remind me" ng-model="a.reminderTime">'+
                         '</div>'+
                     '</div>'+
                     '<div class="remindSidePage">'+
@@ -51,6 +58,3 @@ app.directive("listitem", function() {
         '</div>'
   };
 });
-//'<div class="leftTitleSidePage">'+
-//                            '<input class="leftInputSidePage" type="checkbox" ng-click="changeStatusTask( moduleService.listTasks[valueIndex].contentTask[a.indexTask].taskId)" ng-checked="moduleService.listTasks[valueIndex].contentTask[a.indexTask].checkedTask">'+
-//                        '</div>'+
