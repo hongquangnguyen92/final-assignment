@@ -283,14 +283,10 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
             }
         }
     }
-    //console.log(localStorage.getItem("listT"));
-    $scope.pass = localStorage.getItem("listT");
-    //console.log($scope.pass);
-    console.log($scope.pass.contentTask);
+ 
     // Sign out
     $scope.signOut = function(){
-        //console.log($rootScope.listTasks);
-        localStorage.setItem("listT", JSON.stringify($rootScope.listTasks));
+        //console.log($rootScope.listTasks);    
         $location.path("html/login");
     }
 
@@ -407,10 +403,10 @@ app.controller('ModalInstanceCtrl', function ($scope, $rootScope, $uibModalInsta
 
 app.controller('LoginController', function($scope, $rootScope, $window, LoginService, $location){
 
-//    LoginService.get(function(data){
-//            $rootScope.listUsers = data.listTask;
-//            $scope.lengthListUser = $rootScope.listUsers.length;
-//    });
+    LoginService.get(function(data){
+            $rootScope.listUsers = data.listTask;
+            $scope.lengthListUser = $rootScope.listUsers.length;
+    });
     $scope.loginCheck = function(){
         // check id and password
         for(var i =0; i<$rootScope.listUsers.length; i++)
