@@ -41,9 +41,15 @@ app.directive("listitem", function() {
                     '<div class="remindSidePage">'+
                         '<div class="leftIconSidePage"><span class="form-control glyphicon glyphicon-time"></span></div>'+
                         '<div class="contentSidePage">'+
-                            '<input class="form-control form_datetime" type="text" datepicker placeholder="Remind me" ng-model="a.reminderTime">'+
+                            '<input class="form-control form_datetime" type="text" placeholder="Set reminder by choosing below"  value="{{a.reminderTime|date:'+"'dd-MM-yyyy HH:mm'"+'}}">'+
                         '</div>'+
                     '</div>'+
+      
+      '<datetimepicker min-date="minDate" hour-step="hourStep" minute-step="minuteStep" ng-model="date" date-format="{{format}}" date-options="dateOptions" date-disabled="disabled(date, mode)" datepicker-append-to-body="false" readonly-date="false" hidden-time="false" hidden-date="false" name="datetimepicker" show-meridian="false" show-spinners="true" readonly-time="false" date-opened="dateOpened">'+
+     
+      '</datetimepicker> '+
+                        
+      
                     '<div class="remindSidePage">'+
                         '<div class="completeButton" ng-click="changeStatusTaskPageSlide( listTasks[valueIndex].contentTask[a.indexTask].taskId)">'+
                             '<span class="form-control">Complete task<span class="glyphicon glyphicon-ok"></span></span>'+
@@ -52,7 +58,8 @@ app.directive("listitem", function() {
                             '<span class="form-control">Save info <span class="glyphicon glyphicon-floppy-saved"></span></span>'+
                         '</div>'+
                     '</div>'+
-                    '<div class="rim"></div>'+
+                    '<div class="rim2"></div>'+
+      
                 '</div>'+
             '</div>'+
         '</div>'

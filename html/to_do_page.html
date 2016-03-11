@@ -15,7 +15,7 @@
                                     <div class="titleSidePage">
                                         <div class="nameSidePage1">
                                             <label class="icon-name-primary">{{firstNameLetter}}</label>
-                                            <label class="full-name-primary">{{fullName}}</label>
+                                            <label class="full-name-primary" ng-click="synx()">{{fullName}}</label>
                                             <div class="btn-group">
                                                 <span class="dropdown-toggle" data-toggle="dropdown">
                                                     <span class="glyphicon glyphicon-chevron-down"></span>
@@ -24,7 +24,8 @@
                                                     <li><a ng-click="outToClose()">Sign out</a></li>
                                                 </ul>
                                             </div>
-                                            <span class="glyphicon glyphicon-bell icon-due-time1"></span>
+                                            <span class="glyphicon glyphicon-bell icon-due-time1" uib-popover-template="dynamicPopover.templateUrl" popover-title="{{dynamicPopover.title}}" popover-placement="bottom"></span>
+                                            <span class="popUp2">{{numberPopup}}</span>
                                         </div>
                                     </div>
                                      <div class="addList1">
@@ -32,6 +33,7 @@
                                         <span ng-click="openAdd()" class="addNewList">Add List</span>
                                     </div>
                                     <div class="rim"></div>
+                                    
                                     <div class="collectionSmall">
                                         <collection></collection>
                                     </div>      
@@ -168,10 +170,27 @@ disabled="disabled"
                     </script>
                     <!--                    -->
                     
+                
+                    <!--  Template popup reminder              -->
+                    <script type="text/ng-template" id="myPopoverTemplate.html">
+                       
+                        <div class="groupReminder form-group">
+                          
+<!--                          <input type="text" ng-model="dynamicPopover.title" class="form-control">-->
+                            <div class="reminderItem form-input" ng-repeat="i in listReminder">
+                                <div>Reminder:</div>
+                                <div class="nameRemind">{{i.nameTask}}</div>
+                                <div class="dueDayRemind">deline is {{i.dueDay}}</div>
+                                <hr>
+                            </div>
+                        </div>
+                    </script>
+                    <!--                    -->
+                    
                 </div>
                 <div class="col-md-3 listTask" id="wrapper">
                     <label class="icon-name-primary">{{firstNameLetter}}</label>
-                    <label class="full-name-primary">{{fullName}}</label>
+                    <label class="full-name-primary" ng-click="synx()">{{fullName}}</label>
                     <div class="btn-group">
                         <span class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-menu-down icon-menu"></span>
@@ -180,13 +199,15 @@ disabled="disabled"
                             <li><a ng-click="signOut()">Sign out</a></li>
                         </ul>
                     </div>
-                    <span class="glyphicon glyphicon-bell icon-due-time"></span>
-                    <span></span>
+                    
                     <div>
                         <div class="addList">
                             <h4 ng-click="openAdd()" class="glyphicon glyphicon-plus"></h4> 
                             <span ng-click="openAdd()" class="addNewList">Add List</span>
+                            <span class="glyphicon glyphicon-bell icon-due-time" uib-popover-template="dynamicPopover.templateUrl" popover-title="{{dynamicPopover.title}}" popover-placement="bottom"></span>
+                    <span class="popUp">{{numberPopup}}</span>
                         </div>
+                        
                     </div>
                     <div class="rim"></div>
                     
@@ -195,7 +216,7 @@ disabled="disabled"
                         <collection></collection>
                     </div>
                     <!--                    -->
-                  
+ 
                 </div>
             </div>
         </div>

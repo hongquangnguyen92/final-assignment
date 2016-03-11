@@ -135,7 +135,6 @@ h3 span{
 .full-name, .full-name-primary{
     font-size: 17px;
     margin-left: 10px;
-    
 }
 .new-email-user{
     font-size: 17px;
@@ -179,13 +178,41 @@ h3 span{
     cursor: pointer;
 }
 .icon-due-time1{
-    float: right;
+    margin-left: 10px;
     margin-right: 20px;
     margin-top: 7px;
 }
 .icon-due-time{
-    float:right;
+    margin-left: 50px;
     margin-top: 6px;
+    margin-right: 20px
+}
+.groupReminder{
+    width: 140px;
+}
+.dueDayRemind{
+    color: black;
+}
+.nameRemind{
+    color: red
+}
+.popUp{
+    margin-top: 20px;
+  margin-left: -23px;
+    color: red;
+    font-size: 12px;
+}
+.popUp2{
+    color: black;
+    margin-left: -23px;
+    margin-top: -30px;
+    font-size: 12px;
+}
+
+.popover-title{
+    color: black;
+    padding-right: 20px;
+    padding-top: 20px;
 }
 .addList{
     margin-top: 15px;
@@ -283,19 +310,20 @@ h4{
     clear: both
 }
 .completeButton{
-    padding: 9px 0px 0px 5px;
+    padding: 20px 0px 0px 5px;
     float: left;
     font-size: 20px;
     clear: both;
     width: 150px;
     text-align: center;
     cursor: pointer;
+    margin-top: 0px;
 }
 .saveButton{
+    margin-top: -40px;
     width: 180px;
-    margin-top: -13px;
     margin-left: 130px;
-    padding: 15px 0px 0px 40px;
+    padding: 20px 0px 0px 40px;
     text-align: center;
     cursor: pointer;
 }
@@ -345,9 +373,6 @@ h4{
 @media (max-width: 1200px){
     .search-input{
         width: 200px
-    }
-    .icon-due-time{
-        margin-left: 20px
     }
     .checkTask{
         width: 75%
@@ -444,6 +469,11 @@ h4{
     border: 1px solid;
     color: darkgray
 }
+.rim2{
+    margin-top: 10px;
+    border: 1px solid;
+    color: darkgray
+}
 .scrollable-menu {
     height: auto;
     max-height: 100px;
@@ -458,6 +488,8 @@ h4{
 .createList{
     margin-top: 5px;
 }
+
+
 span.button {
 /*
     background-color: darkcyan;
@@ -515,6 +547,42 @@ body{
     }
 }
 */
+.datetimepicker-wrapper input{
+    width: 145px;
+    margin-left: 5px;
+    margin-top:25px;
+}
+.hours input{
+    margin-top: -65px;
+    margin-left: 190px
+}
+
+.minutes input{
+    margin-top: -65px;
+    margin-left: 15px;
+}
+
+.uib-increment.hours a{
+    margin-left: 190px;
+    margin-top: -110px;
+    outline: none;
+}
+.uib-increment.minutes a{
+    margin-left: 18px;
+    margin-top: -110px;
+    outline: none;
+}
+.uib-decrement.hours a{
+    margin-left: 190px;
+    margin-top: -68px;
+    outline: none;
+}
+.uib-decrement.minutes a{
+    margin-left: 18px;
+    margin-top: -68px;
+    outline: none;
+}
+
 html{
     height: 100%;
 }

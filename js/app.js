@@ -1,4 +1,5 @@
-var app = angular.module('tasks', ["pageslide-directive", "jsonService", "ui.router", "ngAnimate", "ui.bootstrap"]);
+var app = angular.module('tasks', 
+        ["pageslide-directive", "jsonService", "ui.router", "ngAnimate", "ui.bootstrap", "ui.bootstrap.datetimepicker"]);
 
 angular.module('jsonService', ['ngResource'])
 .factory('LoginService', function($resource) {
@@ -36,7 +37,7 @@ app.directive("datepicker", function () {
     };
 });
 
-app.controller('TasksController', function($scope, $rootScope, $window, $location, LoginService, $uibModal){
+app.controller('TasksController', function($scope, $rootScope, $window, $location, LoginService, $uibModal, $timeout){
       
     LoginService.get(function(data){
         $rootScope.idUser = localStorage.getItem('idUser');
@@ -69,6 +70,7 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
                     $rootScope.numberOfList = $rootScope.numberOfList +1;
         
         }
+       
         
     });
     
@@ -104,23 +106,31 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
             }
         });
     };
-
+    
+    $scope.dynamicPopover = {
+        templateUrl: 'myPopoverTemplate.html',
+        title: 'Attention'
+    };
 
     $scope.a = {};
     $scope.a.itemNameTask = "";
     $scope.a.itemRenameTask = "";
     $scope.a.itemUpdateDueDate = "";
     $scope.a.itemDueDate = "";
-    $scope.a.reminderTime = "";
+    $scope.a.reminderTime = $rootScope.datetimeRemind;
+    //console.log($scope.a.reminderTime);
     $scope.a.itemStatusTask = "inprogress";
     $scope.a.indexTask = "";
     $scope.view_tab = "tabInprogress";
+    $scope.numberPopup = 0;
     
     var today = new Date();
     var dd = today.getDate();
     var mm = today.getMonth()+1; //January is 0!
 
     var yyyy = today.getFullYear();
+    var hhs = today.getHours();
+    var mms = today.getMinutes();
     if(dd<10){
         dd='0'+dd
     } 
@@ -128,12 +138,32 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
         mm='0'+mm
     } 
     var todayDue = dd+'-'+mm+'-'+yyyy;
+    var timeToday = dd+'-'+mm+'-'+yyyy+' '+hhs+':'+mms;
+
     $rootScope.dueToday = todayDue;
     $scope.numberTasks = 0;
     
-//    $scope.tempUsers = [
-//        
-//    ];
+    $scope.synx = function(){
+        $scope.numberPopup = 0;
+        $scope.listReminder = [];
+        for(var i=0; i< $scope.listTasks.length; i++)
+            if(i!=1)
+                for(var j=0; j<$scope.listTasks[i].contentTask.length; j++)
+                {
+                    console.log($scope.listTasks[i].contentTask.length);
+                    //$scope.datetimeReminder = new Date($scope.listTasks[i].contentTask[j].reminder);
+                    //console.log($scope.listTasks[i].contentTask[j].reminder);
+                    if($scope.listTasks[i].contentTask[j].reminder!="" && $scope.listTasks[i].contentTask[j].reminder!= null)
+                        if($scope.listTasks[i].contentTask[j].reminder <= today)
+                        {
+                            $scope.numberPopup = $scope.numberPopup + 1;
+                            $scope.listReminder.push($scope.listTasks[i].contentTask[j]);
+                            console.log($scope.listReminder);
+                        }
+                }
+        console.log("popup:" +$scope.numberPopup);
+
+    }
     
     // Choose task list
     $scope.choose = function(indexCurrent){
@@ -150,7 +180,7 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
         }
         
         // due today
-        if(x==1){
+        if($scope.valueIndex==1){
             for(var i=0; i<$scope.listTasks.length; i++)
             {
                 if(i!=1)
@@ -209,7 +239,7 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
             };
             jsonStr.push( new_obj );
         }
-        
+        //console.log($scope.listTasks[indexCurrent].contentTask);
         $scope.numberTasks = 0;
         // Clear input fields after push
         $scope.a.itemNameTask = "";
@@ -276,9 +306,14 @@ app.controller('TasksController', function($scope, $rootScope, $window, $locatio
         $location.path("html/login");
     }
 
+    
+    
+    
+    //
+    
 });  
 
-app.controller('pageslideCtrl',function($scope, $rootScope, $location){
+app.controller('pageslideCtrl',function($scope, $rootScope, $location, $timeout){
 //    $scope.checkedright = false; // This will be binded using the ps-open attribute
 //    $scope.checkedleft = false;
     
@@ -327,9 +362,10 @@ app.controller('pageslideCtrl',function($scope, $rootScope, $location){
                 if($scope.a.itemRenameTask!=null && $scope.a.itemRenameTask!="")
                     $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].nameTask = $scope.a.itemRenameTask;
                 $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].dueDay = $scope.a.itemUpdateDueDate;
-                $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].reminder = $scope.a.reminderTime;
+                $rootScope.listTasks[$rootScope.valueIndex].contentTask[i].reminder = $rootScope.datetimeRemind;
             }
         }
+       
         $scope.a.itemRenameTask = "";
         $rootScope.checkedright = false;
         $rootScope.checkedleft = false;
@@ -343,6 +379,62 @@ app.controller('pageslideCtrl',function($scope, $rootScope, $location){
         }
     }
     
+    //
+    // datetimepicker
+    
+    $scope.dateTimeNow = function() {
+        $scope.date = new Date();
+      };
+      $scope.dateTimeNow();
+
+      $scope.toggleMinDate = function() {
+        var minDate = new Date();
+        // set to yesterday
+        minDate.setDate(minDate.getDate() - 1);
+        $scope.minDate = $scope.minDate ? null : minDate;
+      };
+
+      $scope.toggleMinDate();
+
+      $scope.dateOptions = {
+        showWeeks: false
+      };
+
+      // Disable weekend selection
+      $scope.disabled = function(calendarDate, mode) {
+        return mode === 'day' && ( calendarDate.getDay() === 0 || calendarDate.getDay() === 6 );
+      };
+
+      $scope.open = function($event,opened) {
+        $event.preventDefault();
+        $event.stopPropagation();
+        $scope.dateOpened = true;
+        console.log('opened');
+      };
+
+      $scope.dateOpened = false;
+      $scope.hourStep = 1;
+      $scope.format = "dd-MMM-yyyy";
+      $scope.minuteStep = 15;
+
+      $scope.timeOptions = {
+        hourStep: [1, 2, 3],
+        minuteStep: [1, 5, 10, 15, 25, 30]
+      };
+
+      $scope.showMeridian = false;
+      $scope.timeToggleMode = function() {
+        $scope.showMeridian = !$scope.showMeridian;
+      };
+
+      $scope.$watch("date", function(date) {
+        $rootScope.datetimeRemind = date;
+          console.log($rootScope.datetimeRemind);
+      }, true);
+
+      $scope.resetHours = function() {
+        $scope.date.setHours(1);
+      };
 });
 
 app.controller('ModalInstanceCtrl', function ($scope, $rootScope, $uibModalInstance, items) {
